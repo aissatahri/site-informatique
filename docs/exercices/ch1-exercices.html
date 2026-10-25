@@ -4,14 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Chapitre 1 : Exercices - Informatique - Tronc Commun</title>
+<meta name="description" content="Exercices d&#x27;informatique, Tronc Commun : Chapitre 1 : Exercices. Lycée Qadi Ibn Arabi, 2026-2027.">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="stylesheet" href="../style.css">
 </head>
-<body>
-<nav class="topnav"><a href="../index.html">Accueil</a><a href="../cours/ch1-definitions.html">Cours</a><a href="ch2-exercices.html">Suivant →</a></nav>
+<body id="haut">
+<header class="site-header">
+<a class="brand" href="../index.html">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="44" height="44" aria-hidden="true" focusable="false"><rect width="64" height="64" rx="14" fill="#1F3A5F"/><path d="M32 19c-5-3-12-4-20-3v28c8-1 15 0 20 3 5-3 12-4 20-3V16c-8-1-15 0-20 3z" fill="#fff"/><path d="M32 19v28" stroke="#C8962E" stroke-width="3" fill="none"/></svg>
+<span class="brand-text"><strong>Lycée Qadi Ibn Arabi</strong><span>Informatique - Tronc Commun</span></span>
+</a>
+</header>
 <main>
-<h1>Chapitre 1 : Exercices</h1>
+<nav class="breadcrumb" aria-label="Fil d'Ariane"><ol><li><a href="../index.html">Accueil</a></li><li><a href="../index.html#module-1">Module 1</a></li><li aria-current="page">Chapitre 1</li></ol></nav><div class="tabs"><a class="tab" href="../cours/ch1-definitions.html">Cours</a><span class="tab current" aria-current="page">Exercices</span></div><div class="layout"><nav class="toc" aria-label="Table des matières"><h2>Table des matières</h2><ol><li><a href="#exercice-1-binaire-decimal">Exercice 1 : Binaire → décimal</a></li><li><a href="#exercice-2-decimal-binaire">Exercice 2 : Décimal → binaire</a></li><li><a href="#exercice-3-representation-des-caracteres">Exercice 3 : Représentation des caractères</a></li></ol></nav><article class="content"><h1>Chapitre 1 : Exercices</h1>
 <p><em>Module 1 : Généralités sur les systèmes informatiques</em></p>
-<h2>Exercice 1 : Binaire → décimal</h2>
+<h2 id="exercice-1-binaire-decimal">Exercice 1 : Binaire → décimal</h2>
 <p>Convertir en décimal les nombres suivants :</p>
 <ol>
 <li>10011 = ……………………</li>
@@ -25,7 +32,7 @@
 </ul>
 <p><em>Méthode : on additionne les puissances de 2 correspondant aux bits égaux à 1.</em></p>
 </details>
-<h2>Exercice 2 : Décimal → binaire</h2>
+<h2 id="exercice-2-decimal-binaire">Exercice 2 : Décimal → binaire</h2>
 <p>Convertir en binaire les nombres suivants :</p>
 <ol>
 <li>59 = ……………………</li>
@@ -39,7 +46,7 @@
 </ul>
 <p><em>Méthode : on décompose le nombre en puissances de 2 (ou par divisions successives par 2, en lisant les restes de bas en haut).</em></p>
 </details>
-<h2>Exercice 3 : Représentation des caractères</h2>
+<h2 id="exercice-3-representation-des-caracteres">Exercice 3 : Représentation des caractères</h2>
 <p>Représenter en binaire les caractères suivants :</p>
 <ol>
 <li>B : …………………………….</li>
@@ -61,7 +68,18 @@
 <li>f = <strong>01100110</strong></li>
 </ul>
 <p><em>Méthode : B = A + 1 ; C = A + 2 ; E = A + 4 ; c = a + 2 ; f = a + 5 (chaque lettre : code de A ou a + son rang dans l'alphabet moins 1, addition en binaire).</em></p>
-</details>
+</details></article></div><nav class="pager" aria-label="Navigation entre chapitres"><span></span><a class="btn btn-ghost next" href="ch2-exercices.html">Suivant →<small>Chapitre 2 : Exercices</small></a></nav>
 </main>
+<footer class="site-footer">
+<p>Enseignant : Aissa Tahri</p>
+<p>Année scolaire 2026-2027</p>
+</footer>
+<a class="to-top" href="#haut" aria-label="Retour en haut">↑ <span>Retour en haut</span></a>
+<script>
+// Impression : ouvre toutes les corrections
+window.addEventListener("beforeprint", function () {
+  document.querySelectorAll("details").forEach(function (d) { d.open = true; });
+});
+</script>
 </body>
 </html>

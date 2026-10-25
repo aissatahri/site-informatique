@@ -3,15 +3,31 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Informatique - Tronc Commun</title>
+<title>Informatique - Tronc Commun - Lycée Qadi Ibn Arabi</title>
+<meta name="description" content="Informatique - Tronc Commun au Lycée Qadi Ibn Arabi : cours et exercices corrigés, année scolaire 2026-2027.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
-
+<body id="haut">
+<header class="site-header">
+<a class="brand" href="index.html">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="44" height="44" aria-hidden="true" focusable="false"><rect width="64" height="64" rx="14" fill="#1F3A5F"/><path d="M32 19c-5-3-12-4-20-3v28c8-1 15 0 20 3 5-3 12-4 20-3V16c-8-1-15 0-20 3z" fill="#fff"/><path d="M32 19v28" stroke="#C8962E" stroke-width="3" fill="none"/></svg>
+<span class="brand-text"><strong>Lycée Qadi Ibn Arabi</strong><span>Informatique - Tronc Commun</span></span>
+</a>
+</header>
 <main>
+<section class="hero">
 <h1>Informatique - Tronc Commun</h1>
+<p>Bienvenue sur le site de cours d&#x27;informatique : retrouvez ici les cours et les exercices corrigés de l&#x27;année.</p>
+</section>
+<h2 class="section-title">Les modules</h2>
 <div class="modules">
-<section class="module">
+<article class="card"><span class="card-num">Module 1</span><h3><a href="#module-1">Généralités sur les systèmes informatiques</a></h3><p class="card-meta">3 chapitres</p><span class="badge badge-ok">Disponible</span></article>
+<article class="card soon"><span class="card-num">Module 2</span><h3>Les logiciels</h3><p class="card-meta">Chapitres à venir</p><span class="badge">Bientôt</span></article>
+<article class="card soon"><span class="card-num">Module 3</span><h3>Algorithme et programmation</h3><p class="card-meta">Chapitres à venir</p><span class="badge">Bientôt</span></article>
+<article class="card soon"><span class="card-num">Module 4</span><h3>Réseaux et internet</h3><p class="card-meta">Chapitres à venir</p><span class="badge">Bientôt</span></article>
+</div>
+<section class="chapters" id="module-1">
 <h2>Module 1 : Généralités sur les systèmes informatiques</h2>
 <div class="chapter">
 <h3>Chapitre 1 : Définition et vocabulaire de base</h3>
@@ -31,19 +47,17 @@
 <a class="btn" href="cours/ch3-logiciels.html">Cours</a>
 </p></div>
 </section>
-<section class="module soon">
-<h2>Module 2 : Les logiciels</h2>
-<p><span class="badge">Bientôt</span></p>
-</section>
-<section class="module soon">
-<h2>Module 3 : Algorithme et programmation</h2>
-<p><span class="badge">Bientôt</span></p>
-</section>
-<section class="module soon">
-<h2>Module 4 : Réseaux et internet</h2>
-<p><span class="badge">Bientôt</span></p>
-</section>
-</div>
 </main>
+<footer class="site-footer">
+<p>Enseignant : Aissa Tahri</p>
+<p>Année scolaire 2026-2027</p>
+</footer>
+<a class="to-top" href="#haut" aria-label="Retour en haut">↑ <span>Retour en haut</span></a>
+<script>
+// Impression : ouvre toutes les corrections
+window.addEventListener("beforeprint", function () {
+  document.querySelectorAll("details").forEach(function (d) { d.open = true; });
+});
+</script>
 </body>
 </html>

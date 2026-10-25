@@ -4,14 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Chapitre 2 : Structure de base d&#x27;un ordinateur - Informatique - Tronc Commun</title>
+<meta name="description" content="Cours d&#x27;informatique, Tronc Commun : Chapitre 2 : Structure de base d&#x27;un ordinateur. Lycée Qadi Ibn Arabi, 2026-2027.">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="stylesheet" href="../style.css">
 </head>
-<body>
-<nav class="topnav"><a href="../index.html">Accueil</a><a href="../exercices/ch2-exercices.html">Exercices</a><a href="ch1-definitions.html">← Précédent</a><a href="ch3-logiciels.html">Suivant →</a></nav>
+<body id="haut">
+<header class="site-header">
+<a class="brand" href="../index.html">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="44" height="44" aria-hidden="true" focusable="false"><rect width="64" height="64" rx="14" fill="#1F3A5F"/><path d="M32 19c-5-3-12-4-20-3v28c8-1 15 0 20 3 5-3 12-4 20-3V16c-8-1-15 0-20 3z" fill="#fff"/><path d="M32 19v28" stroke="#C8962E" stroke-width="3" fill="none"/></svg>
+<span class="brand-text"><strong>Lycée Qadi Ibn Arabi</strong><span>Informatique - Tronc Commun</span></span>
+</a>
+</header>
 <main>
-<h1>Chapitre 2 : Structure de base d'un ordinateur</h1>
+<nav class="breadcrumb" aria-label="Fil d'Ariane"><ol><li><a href="../index.html">Accueil</a></li><li><a href="../index.html#module-1">Module 1</a></li><li aria-current="page">Chapitre 2</li></ol></nav><div class="tabs"><span class="tab current" aria-current="page">Cours</span><a class="tab" href="../exercices/ch2-exercices.html">Exercices</a></div><div class="layout"><nav class="toc" aria-label="Table des matières"><h2>Table des matières</h2><ol><li><a href="#plan-du-cours">Plan du cours</a></li><li><a href="#1-l-ordinateur">1. L&#x27;ordinateur</a></li><li><a href="#2-schema-fonctionnel-d-un-ordinateur">2. Schéma fonctionnel d&#x27;un ordinateur</a></li><li><a href="#3-le-cpu-processeur">3. Le CPU (processeur)</a></li><li><a href="#4-le-systeme-de-bus">4. Le système de bus</a></li><li><a href="#5-la-memoire-centrale-ram-rom">5. La mémoire centrale (RAM / ROM)</a></li><li><a href="#6-le-stockage-memoire-de-masse">6. Le stockage (mémoire de masse)</a></li><li><a href="#7-les-unites-d-entree-et-de-sortie-interfaces-et-peripheriques">7. Les unités d&#x27;entrée et de sortie (interfaces et périphériques)</a></li><li><a href="#8-la-carte-mere">8. La carte mère</a></li><li><a href="#resume">Résumé</a></li></ol></nav><article class="content"><h1>Chapitre 2 : Structure de base d'un ordinateur</h1>
 <p><em>Tronc Commun — Cours d'informatique — Architecture matérielle (Hardware)</em></p>
-<h2>Plan du cours</h2>
+<h2 id="plan-du-cours">Plan du cours</h2>
 <ol>
 <li>L'ordinateur</li>
 <li>Schéma fonctionnel d'un ordinateur</li>
@@ -22,9 +29,8 @@
 <li>Les unités d'entrée / sortie (interfaces et périphériques)</li>
 <li>La carte mère</li>
 </ol>
-<h2>1. L'ordinateur</h2>
-<blockquote>
-<p><strong>Définition</strong> : Un ordinateur est une machine électronique capable de recevoir des données (informations), de les traiter automatiquement selon un programme (une suite d'instructions), puis de restituer un résultat, et de conserver ces informations.</p>
+<h2 id="1-l-ordinateur">1. L'ordinateur</h2>
+<blockquote class="note note-definition"><p><strong>Définition</strong> : Un ordinateur est une machine électronique capable de recevoir des données (informations), de les traiter automatiquement selon un programme (une suite d'instructions), puis de restituer un résultat, et de conserver ces informations.</p>
 <p><strong>Exemple</strong> : Ordinateur de bureau (PC), ordinateur portable, tablette, serveur. On y trouve tous les jours un ordinateur : au collège, à la banque, dans une caisse de supermarché, dans un téléphone intelligent…</p>
 </blockquote>
 <p><img alt="Ordinateur de bureau / portable" src="../assets/ch2/ordinateur.png" /></p>
@@ -36,15 +42,13 @@
 <li><strong>Sortie</strong> : afficher ou restituer le résultat (ex : voir le texte à l'écran)</li>
 <li><strong>Stockage</strong> : conserver les données pour les réutiliser plus tard (ex : enregistrer le fichier)</li>
 </ul>
-<h2>2. Schéma fonctionnel d'un ordinateur</h2>
-<blockquote>
-<p><strong>Définition</strong> : Le schéma fonctionnel représente les grandes parties d'un ordinateur et la manière dont l'information circule entre elles : de l'entrée vers le traitement, puis vers la sortie, avec une mémoire pour conserver les données.</p>
+<h2 id="2-schema-fonctionnel-d-un-ordinateur">2. Schéma fonctionnel d'un ordinateur</h2>
+<blockquote class="note note-definition"><p><strong>Définition</strong> : Le schéma fonctionnel représente les grandes parties d'un ordinateur et la manière dont l'information circule entre elles : de l'entrée vers le traitement, puis vers la sortie, avec une mémoire pour conserver les données.</p>
 </blockquote>
 <p>Voir l'exercice 2 dans les <a href="../exercices/ch2-exercices.html">exercices du chapitre 2</a>.</p>
 <p>Toutes les flèches représentent la circulation de l'information, assurée physiquement par le système de bus (voir partie 4).</p>
-<h2>3. Le CPU (processeur)</h2>
-<blockquote>
-<p><strong>Définition</strong> : Le CPU (Central Processing Unit), ou microprocesseur, est le « cerveau » de l'ordinateur. Il exécute les instructions des programmes : il fait les calculs et prend les décisions logiques.</p>
+<h2 id="3-le-cpu-processeur">3. Le CPU (processeur)</h2>
+<blockquote class="note note-definition"><p><strong>Définition</strong> : Le CPU (Central Processing Unit), ou microprocesseur, est le « cerveau » de l'ordinateur. Il exécute les instructions des programmes : il fait les calculs et prend les décisions logiques.</p>
 </blockquote>
 <p><strong>Ses principaux composants</strong></p>
 <ul>
@@ -57,14 +61,12 @@
 <li><strong>La fréquence</strong> (en GHz) : nombre de cycles exécutés par seconde (1 GHz = 1 milliard de cycles par seconde)</li>
 <li><strong>Le nombre de cœurs</strong> : un CPU « multi-cœurs » peut traiter plusieurs tâches en même temps</li>
 </ul>
-<blockquote>
-<p><strong>Exemple</strong> : Intel Core i5, Intel Core i7, AMD Ryzen 5. Un processeur à 3,5 GHz effectue environ 3,5 milliards de cycles par seconde.</p>
+<blockquote class="note note-exemple"><p><strong>Exemple</strong> : Intel Core i5, Intel Core i7, AMD Ryzen 5. Un processeur à 3,5 GHz effectue environ 3,5 milliards de cycles par seconde.</p>
 </blockquote>
 <p><img alt="Photo réelle : Processeur (CPU)" src="../assets/ch2/cpu.jpg" /></p>
 <p><em>Photo réelle : Processeur (CPU)</em></p>
-<h2>4. Le système de bus</h2>
-<blockquote>
-<p><strong>Définition</strong> : Un bus est un ensemble de fils électriques (circuits) qui transportent l'information entre les différents composants de l'ordinateur (CPU, mémoire, périphériques).</p>
+<h2 id="4-le-systeme-de-bus">4. Le système de bus</h2>
+<blockquote class="note note-definition"><p><strong>Définition</strong> : Un bus est un ensemble de fils électriques (circuits) qui transportent l'information entre les différents composants de l'ordinateur (CPU, mémoire, périphériques).</p>
 </blockquote>
 <p>On peut comparer le système de bus aux routes d'une ville : elles permettent aux voitures (les données) de circuler entre les quartiers (les composants).</p>
 <p><strong>Les trois types de bus</strong></p>
@@ -94,20 +96,17 @@
 </tr>
 </tbody>
 </table></div>
-<h2>5. La mémoire centrale (RAM / ROM)</h2>
-<blockquote>
-<p><strong>Définition</strong> : La mémoire centrale est la mémoire directement accessible par le CPU. Elle est composée de deux types : la RAM et la ROM.</p>
+<h2 id="5-la-memoire-centrale-ram-rom">5. La mémoire centrale (RAM / ROM)</h2>
+<blockquote class="note note-definition"><p><strong>Définition</strong> : La mémoire centrale est la mémoire directement accessible par le CPU. Elle est composée de deux types : la RAM et la ROM.</p>
 </blockquote>
 <h3>5.1 La RAM (Random Access Memory)</h3>
-<blockquote>
-<p><strong>Définition</strong> : La RAM, ou mémoire vive, est une mémoire volatile : elle stocke temporairement les programmes et données en cours d'utilisation, et son contenu s'efface quand l'ordinateur s'éteint.</p>
+<blockquote class="note note-definition"><p><strong>Définition</strong> : La RAM, ou mémoire vive, est une mémoire volatile : elle stocke temporairement les programmes et données en cours d'utilisation, et son contenu s'efface quand l'ordinateur s'éteint.</p>
 <p><strong>Exemple</strong> : Barrette de RAM DDR4 de 8 Go ou 16 Go. Plus la RAM est grande, plus l'ordinateur peut exécuter de programmes en même temps sans ralentir.</p>
 </blockquote>
 <p><img alt="Photo réelle : Barrette de RAM" src="../assets/ch2/ram.jpg" /></p>
 <p><em>Photo réelle : Barrette de RAM</em></p>
 <h3>5.2 La ROM (Read Only Memory)</h3>
-<blockquote>
-<p><strong>Définition</strong> : La ROM, ou mémoire morte, est une mémoire non volatile en lecture seule : son contenu reste même sans alimentation électrique. Elle contient les instructions nécessaires au démarrage de l'ordinateur.</p>
+<blockquote class="note note-definition"><p><strong>Définition</strong> : La ROM, ou mémoire morte, est une mémoire non volatile en lecture seule : son contenu reste même sans alimentation électrique. Elle contient les instructions nécessaires au démarrage de l'ordinateur.</p>
 <p><strong>Exemple</strong> : Le BIOS/UEFI, programme stocké en ROM, qui démarre l'ordinateur avant même le chargement du système d'exploitation.</p>
 </blockquote>
 <p><img alt="Mémoire ROM" src="../assets/ch2/rom.png" /></p>
@@ -142,9 +141,8 @@
 </tr>
 </tbody>
 </table></div>
-<h2>6. Le stockage (mémoire de masse)</h2>
-<blockquote>
-<p><strong>Définition</strong> : La mémoire de stockage (ou mémoire secondaire) permet de conserver les données de façon permanente, même lorsque l'ordinateur est éteint, contrairement à la RAM.</p>
+<h2 id="6-le-stockage-memoire-de-masse">6. Le stockage (mémoire de masse)</h2>
+<blockquote class="note note-definition"><p><strong>Définition</strong> : La mémoire de stockage (ou mémoire secondaire) permet de conserver les données de façon permanente, même lorsque l'ordinateur est éteint, contrairement à la RAM.</p>
 <p><strong>Exemple</strong> : Disque dur (HDD), disque SSD, clé USB, carte mémoire SD, CD/DVD, disque dur externe.</p>
 </blockquote>
 <p><img alt="Disque SSD" src="../assets/ch2/stockage-ssd.jpg" /> <img alt="Disque dur (HDD)" src="../assets/ch2/stockage-hdd.jpg" /></p>
@@ -180,22 +178,19 @@
 </tr>
 </tbody>
 </table></div>
-<h2>7. Les unités d'entrée et de sortie (interfaces et périphériques)</h2>
-<blockquote>
-<p><strong>Définition</strong> : Les unités d'entrée/sortie permettent à l'ordinateur de communiquer avec le monde extérieur (l'utilisateur ou d'autres appareils). Elles regroupent les interfaces (connexions) et les périphériques (appareils).</p>
+<h2 id="7-les-unites-d-entree-et-de-sortie-interfaces-et-peripheriques">7. Les unités d'entrée et de sortie (interfaces et périphériques)</h2>
+<blockquote class="note note-definition"><p><strong>Définition</strong> : Les unités d'entrée/sortie permettent à l'ordinateur de communiquer avec le monde extérieur (l'utilisateur ou d'autres appareils). Elles regroupent les interfaces (connexions) et les périphériques (appareils).</p>
 </blockquote>
 <h3>7.1 Les interfaces</h3>
 <p>Une interface est l'élément physique qui permet de relier un périphérique à l'unité centrale.</p>
 <h4>a. Les cartes d'extension</h4>
-<blockquote>
-<p><strong>Définition</strong> : Une carte d'extension est un circuit électronique que l'on insère dans un connecteur (slot) de la carte mère pour ajouter ou améliorer une fonctionnalité.</p>
+<blockquote class="note note-definition"><p><strong>Définition</strong> : Une carte d'extension est un circuit électronique que l'on insère dans un connecteur (slot) de la carte mère pour ajouter ou améliorer une fonctionnalité.</p>
 <p><strong>Exemple</strong> : Carte graphique (pour l'affichage), carte son, carte réseau Wi-Fi.</p>
 </blockquote>
 <p><img alt="Carte graphique (carte d'extension)" src="../assets/ch2/carte-extension.jpg" /></p>
 <p><em>Carte graphique (carte d'extension)</em></p>
 <h4>b. Les ports</h4>
-<blockquote>
-<p><strong>Définition</strong> : Un port est un point de connexion, visible à l'extérieur du boîtier, où l'on branche physiquement un périphérique.</p>
+<blockquote class="note note-definition"><p><strong>Définition</strong> : Un port est un point de connexion, visible à l'extérieur du boîtier, où l'on branche physiquement un périphérique.</p>
 <p><strong>Exemple</strong> : Port USB, port HDMI (écran), port Ethernet (réseau), port jack (audio), port VGA.</p>
 </blockquote>
 <div class="table-wrap"><table>
@@ -257,26 +252,22 @@
 <h3>7.2 Les périphériques</h3>
 <p>Un périphérique est tout appareil relié à l'unité centrale et qui n'en fait pas partie physiquement.</p>
 <h4>a. Périphériques d'entrée</h4>
-<blockquote>
-<p><strong>Définition</strong> : Ils permettent à l'utilisateur d'envoyer des données ou des instructions vers l'ordinateur.</p>
+<blockquote class="note note-definition"><p><strong>Définition</strong> : Ils permettent à l'utilisateur d'envoyer des données ou des instructions vers l'ordinateur.</p>
 <p><strong>Exemple</strong> : Clavier, souris, scanner, webcam, microphone, manette de jeu.</p>
 </blockquote>
 <p>Voir l'exercice 1 (images 1 à 8) dans les <a href="../exercices/ch2-exercices.html">exercices du chapitre 2</a>.</p>
 <h4>b. Périphériques de sortie</h4>
-<blockquote>
-<p><strong>Définition</strong> : Ils permettent de restituer à l'utilisateur le résultat du traitement effectué par l'ordinateur.</p>
+<blockquote class="note note-definition"><p><strong>Définition</strong> : Ils permettent de restituer à l'utilisateur le résultat du traitement effectué par l'ordinateur.</p>
 <p><strong>Exemple</strong> : Écran (moniteur), imprimante, haut-parleurs, vidéoprojecteur.</p>
 </blockquote>
 <p>Voir l'exercice 1 (images 9 à 12) dans les <a href="../exercices/ch2-exercices.html">exercices du chapitre 2</a>.</p>
 <h4>c. Périphériques d'entrée/sortie</h4>
-<blockquote>
-<p><strong>Définition</strong> : Ce sont des périphériques qui remplissent à la fois le rôle d'entrée et de sortie.</p>
+<blockquote class="note note-definition"><p><strong>Définition</strong> : Ce sont des périphériques qui remplissent à la fois le rôle d'entrée et de sortie.</p>
 <p><strong>Exemple</strong> : Écran tactile, casque avec micro intégré, imprimante multifonction (scanner + imprimante), modem/routeur.</p>
 </blockquote>
 <p>Voir l'exercice 1 (images 13 à 16) dans les <a href="../exercices/ch2-exercices.html">exercices du chapitre 2</a>.</p>
-<h2>8. La carte mère</h2>
-<blockquote>
-<p><strong>Définition</strong> : La carte mère (motherboard) est le circuit imprimé principal de l'ordinateur. Elle relie et alimente tous les composants (CPU, mémoire centrale, cartes d'extension, stockage) grâce au système de bus.</p>
+<h2 id="8-la-carte-mere">8. La carte mère</h2>
+<blockquote class="note note-definition"><p><strong>Définition</strong> : La carte mère (motherboard) est le circuit imprimé principal de l'ordinateur. Elle relie et alimente tous les composants (CPU, mémoire centrale, cartes d'extension, stockage) grâce au système de bus.</p>
 </blockquote>
 <p><strong>Ses éléments principaux</strong></p>
 <ul>
@@ -287,14 +278,24 @@
 <li><strong>Les ports arrière</strong> : USB, HDMI, Ethernet, audio…</li>
 <li><strong>Le chipset</strong> : gère la communication entre les composants</li>
 </ul>
-<blockquote>
-<p><strong>Exemple</strong> : Cartes mères ASUS, MSI, Gigabyte, aux formats ATX, micro-ATX ou mini-ITX selon la taille du boîtier.</p>
+<blockquote class="note note-exemple"><p><strong>Exemple</strong> : Cartes mères ASUS, MSI, Gigabyte, aux formats ATX, micro-ATX ou mini-ITX selon la taille du boîtier.</p>
 </blockquote>
 <p><img alt="Carte mère complète" src="../assets/ch2/carte-mere.jpg" /></p>
 <p><em>Carte mère complète</em></p>
-<h2>Résumé</h2>
+<h2 id="resume">Résumé</h2>
 <p>L'ordinateur reçoit des données (entrée), les traite grâce au CPU en utilisant la mémoire centrale (RAM/ROM), les fait circuler via le système de bus, restitue un résultat (sortie), et peut conserver les informations durablement (stockage). Tous ces composants sont reliés physiquement par la carte mère, qui constitue le squelette de l'ordinateur.</p>
-<p>Voir l'exercice 3 dans les <a href="../exercices/ch2-exercices.html">exercices du chapitre 2</a>.</p>
+<p>Voir l'exercice 3 dans les <a href="../exercices/ch2-exercices.html">exercices du chapitre 2</a>.</p></article></div><nav class="pager" aria-label="Navigation entre chapitres"><a class="btn btn-ghost" href="ch1-definitions.html">← Précédent<small>Chapitre 1 : Définition et vocabulaire de base</small></a><a class="btn btn-ghost next" href="ch3-logiciels.html">Suivant →<small>Chapitre 3 : Les logiciels</small></a></nav>
 </main>
+<footer class="site-footer">
+<p>Enseignant : Aissa Tahri</p>
+<p>Année scolaire 2026-2027</p>
+</footer>
+<a class="to-top" href="#haut" aria-label="Retour en haut">↑ <span>Retour en haut</span></a>
+<script>
+// Impression : ouvre toutes les corrections
+window.addEventListener("beforeprint", function () {
+  document.querySelectorAll("details").forEach(function (d) { d.open = true; });
+});
+</script>
 </body>
 </html>
