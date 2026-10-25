@@ -22,4 +22,6 @@ Langue : français. Les élèves consultent surtout sur téléphone.
 - Site statique : HTML et CSS simples, sans framework.
 - Ne jamais changer le contenu pédagogique sans me le demander.
 - Chaque exercice a un bouton « Afficher la correction ».
+- entrainement/source/ = données de la page d'entraînement ;
+  ne jamais copier exams.json ni les corrigés de contrôle dans ce projet.
 - Travailler une petite tâche à la fois et attendre ma validation.

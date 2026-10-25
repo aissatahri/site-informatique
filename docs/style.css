@@ -60,6 +60,26 @@ body {
 .brand-text strong { font-size: 1.05rem; }
 .brand-text span { font-size: 0.9rem; color: #d6deea; }
 
+/* Barre de navigation */
+.site-nav {
+  display: flex;
+  gap: 4px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 8px 8px;
+}
+.site-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  padding: 0 14px;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 8px;
+}
+.site-nav a:hover, .site-nav a:focus { background: rgba(255, 255, 255, 0.15); }
+
 /* Contenu */
 main {
   flex: 1;
@@ -300,6 +320,50 @@ details > :last-child { margin-bottom: 14px; }
   border-radius: var(--radius);
 }
 .chapter h3 { margin: 0.8em 0 0.4em; font-size: 1.05rem; }
+
+/* Page d'entraînement */
+[hidden] { display: none !important; }
+button.btn { border: 0; font: inherit; font-weight: 700; cursor: pointer; }
+button.btn-ghost { border: 1px solid var(--navy); }
+.series { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0; }
+.serie { display: inline-flex; align-items: center; gap: 8px; min-height: var(--tap); padding: 0 18px; background: var(--surface); border: 2px solid var(--border); border-radius: 10px; font-weight: 600; cursor: pointer; }
+.serie:has(input:checked) { border-color: var(--navy); background: var(--def-bg); }
+.serie input { width: 20px; height: 20px; }
+
+.exam-title { margin-top: 0.8em; }
+.ex { margin: 18px 0; padding: 4px 16px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
+.ex h2 { font-size: 1.15rem; }
+.ex h3 { font-size: 1.05rem; }
+.pts { display: inline-block; margin-left: 6px; padding: 0 10px; background: var(--gold); color: #1E2430; border-radius: 999px; font-size: 0.8rem; font-weight: 700; vertical-align: middle; }
+.cons { color: var(--muted); font-size: 0.95rem; }
+.defs { display: grid; gap: 8px; margin: 8px 0 14px; }
+.def { display: flex; gap: 10px; padding: 8px 12px; background: var(--def-bg); border-left: 4px solid var(--def-border); border-radius: 0 8px 8px 0; }
+.def b { flex: none; color: var(--navy); }
+.grid { display: grid; gap: 10px; grid-template-columns: 1fr; }
+.q { padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg); }
+.q .lab { display: block; margin-bottom: 6px; }
+.q select, .q input[type="text"] { width: 100%; min-height: var(--tap); padding: 6px 10px; font: inherit; color: var(--text); background: #fff; border: 1px solid #aab3c0; border-radius: 8px; }
+.vf { display: flex; gap: 8px; }
+.vf button { flex: 1; min-height: var(--tap); font: inherit; font-weight: 700; color: var(--navy); background: #fff; border: 2px solid var(--navy); border-radius: 8px; cursor: pointer; }
+.vf button.on { background: var(--navy); color: #fff; }
+.q.ok { background: var(--green-bg); border-color: #a9d3b9; border-left: 5px solid var(--green); }
+.q.ko { background: #fdf0ef; border-color: #e8b4b0; border-left: 5px solid #c0392b; }
+.q .note { margin-top: 6px; font-size: 0.95rem; }
+.q.ok .note { color: var(--green); font-weight: 700; }
+.q.ko .note { color: #9b2c20; }
+.why { margin-top: 4px; color: var(--text); }
+.schema { display: block; margin: 8px 0 12px; border: 1px solid var(--border); border-radius: 8px; background: #fff; }
+.result { margin: 12px 0; padding: 4px 16px 12px; background: var(--surface); border: 1px solid var(--border); border-top: 4px solid var(--gold); border-radius: var(--radius); }
+.big-note { margin: 0; font-size: 2.2rem; color: var(--navy); }
+table.score { min-width: 0; width: 100%; max-width: 420px; }
+table.score td:last-child { text-align: right; white-space: nowrap; }
+table.score tr.tot td { font-weight: 700; background: var(--def-bg); }
+.legend { font-size: 0.9rem; }
+.lg { display: inline-block; padding: 0 10px; border-radius: 999px; margin-right: 6px; }
+.lg.ok { background: #dff1e6; color: #1e6b3f; }
+.lg.ko { background: #fbe3e0; color: #9b2c20; }
+@media (min-width: 700px) { .grid { grid-template-columns: 1fr 1fr; } }
+@media print { .site-nav { display: none; } }
 
 /* Pied de page */
 .site-footer {

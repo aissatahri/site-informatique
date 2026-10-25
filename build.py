@@ -4,6 +4,7 @@ Usage : python build.py
 Dépendance : pip install markdown
 """
 import html
+import json
 import re
 import shutil
 import struct
@@ -129,6 +130,10 @@ PAGE = """<!DOCTYPE html>
 {logo}
 <span class="brand-text"><strong>{school}</strong><span>{site_title}</span></span>
 </a>
+<nav class="site-nav" aria-label="Navigation principale">
+<a href="{root}index.html">Accueil</a>
+<a href="{root}entrainement.html">Entraînement</a>
+</nav>
 </header>
 <main>
 {body}
@@ -296,7 +301,7 @@ def make_page(title, description, root, body):
     )
 
 
-def index_page(cours, exercices):
+def index_page(cours, exercices, n_series):
     intro = (
         "Bienvenue sur le site de cours d'informatique : retrouvez ici les cours "
         "et les exercices corrigés de l'année."
@@ -328,6 +333,17 @@ def index_page(cours, exercices):
             f"<h3>{anchor}</h3>"
             f'<p class="card-meta">{count_txt}</p>{tag}</article>'
         )
+    parts.append("</div>")
+
+    parts.append('<h2 class="section-title">Entraînement</h2>')
+    parts.append('<div class="modules">')
+    parts.append(
+        '<article class="card">'
+        '<span class="card-num">Entraînement</span>'
+        '<h3><a href="entrainement.html">Séries d\'entraînement</a></h3>'
+        f'<p class="card-meta">{n_series} séries, notées sur 20</p>'
+        '<span class="badge badge-ok">Disponible</span></article>'
+    )
     parts.append("</div>")
 
     parts.append(f'<section class="chapters" id="module-{ACTIVE_MODULE + 1}">')
@@ -374,8 +390,52 @@ def chapter_page(kind, num, cours, exercices):
     )
 
 
+TRAINING_BODY = """<nav class="breadcrumb" aria-label="Fil d'Ariane"><ol>
+<li><a href="index.html">Accueil</a></li>
+<li aria-current="page">Entraînement</li>
+</ol></nav>
+<h1>Entraînement</h1>
+<section id="step-choice">
+<p>Choisis une série, puis clique sur « Commencer ». Les questions sont tirées au hasard à chaque début. La note est calculée sur 20, directement dans ton navigateur : rien n'est envoyé ni enregistré.</p>
+<div id="series" class="series"></div>
+<p class="buttons"><button type="button" class="btn" id="start">Commencer</button></p>
+</section>
+<section id="step-result" hidden>
+<div class="result">
+<h2 id="result-title"></h2>
+<p class="big-note" id="result-note"></p>
+<div class="table-wrap" id="result-table"></div>
+<p class="buttons">
+<button type="button" class="btn" id="restart">Recommencer (nouveau tirage)</button>
+<button type="button" class="btn btn-ghost" id="change">Changer de série</button>
+</p>
+<p class="legend"><span class="lg ok">Bonne réponse</span> <span class="lg ko">Mauvaise réponse ou sans réponse</span></p>
+</div>
+</section>
+<section id="step-exam" hidden>
+<h2 id="exam-title" class="exam-title"></h2>
+<div id="exam-root"></div>
+<p class="buttons"><button type="button" class="btn btn-alt" id="finish">Terminer et voir la correction</button></p>
+</section>
+<script>var TRAINING = __DATA__;</script>
+<script src="exam.js"></script>
+<script src="entrainement.js"></script>"""
+
+
+def training_page(training):
+    data = json.dumps(training, ensure_ascii=False).replace("</", "<\\/")
+    return make_page(
+        f"Entraînement - {SITE_TITLE}",
+        f"Séries d'entraînement corrigées et notées sur 20. {SCHOOL}, {YEAR}.",
+        "",
+        TRAINING_BODY.replace("__DATA__", data),
+    )
+
+
 def main():
     cours, exercices = load("cours"), load("exercices")
+    src = ROOT / "entrainement"
+    training = json.loads((src / "source" / "training.json").read_text(encoding="utf-8"))
 
     # Pages HTML régénérées ; assets recopiés (les liens ../assets/ restent valides)
     for sub in ("cours", "exercices"):
@@ -385,7 +445,10 @@ def main():
 
     write(DOCS / "favicon.svg", FAVICON_SVG)
     (DOCS / "favicon.ico").write_bytes(make_favicon_ico())
-    write(DOCS / "index.html", index_page(cours, exercices))
+    shutil.copy(src / "source" / "exam.js", DOCS / "exam.js")
+    shutil.copy(src / "entrainement.js", DOCS / "entrainement.js")
+    write(DOCS / "entrainement.html", training_page(training))
+    write(DOCS / "index.html", index_page(cours, exercices, len(training)))
     for kind, pages in (("cours", cours), ("exercices", exercices)):
         for num, (stem, *_rest) in pages.items():
             write(DOCS / kind / f"{stem}.html", chapter_page(kind, num, cours, exercices))

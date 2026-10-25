@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entraînement - Informatique - Tronc Commun</title>
+<meta name="description" content="Séries d&#x27;entraînement corrigées et notées sur 20. Lycée Qadi Ibn Arabi, 2026-2027.">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+</head>
+<body id="haut">
+<header class="site-header">
+<a class="brand" href="index.html">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="44" height="44" aria-hidden="true" focusable="false"><rect width="64" height="64" rx="14" fill="#1F3A5F"/><path d="M32 19c-5-3-12-4-20-3v28c8-1 15 0 20 3 5-3 12-4 20-3V16c-8-1-15 0-20 3z" fill="#fff"/><path d="M32 19v28" stroke="#C8962E" stroke-width="3" fill="none"/></svg>
+<span class="brand-text"><strong>Lycée Qadi Ibn Arabi</strong><span>Informatique - Tronc Commun</span></span>
+</a>
+<nav class="site-nav" aria-label="Navigation principale">
+<a href="index.html">Accueil</a>
+<a href="entrainement.html">Entraînement</a>
+</nav>
+</header>
+<main>
+<nav class="breadcrumb" aria-label="Fil d'Ariane"><ol>
+<li><a href="index.html">Accueil</a></li>
+<li aria-current="page">Entraînement</li>
+</ol></nav>
+<h1>Entraînement</h1>
+<section id="step-choice">
+<p>Choisis une série, puis clique sur « Commencer ». Les questions sont tirées au hasard à chaque début. La note est calculée sur 20, directement dans ton navigateur : rien n'est envoyé ni enregistré.</p>
+<div id="series" class="series"></div>
+<p class="buttons"><button type="button" class="btn" id="start">Commencer</button></p>
+</section>
+<section id="step-result" hidden>
+<div class="result">
+<h2 id="result-title"></h2>
+<p class="big-note" id="result-note"></p>
+<div class="table-wrap" id="result-table"></div>
+<p class="buttons">
+<button type="button" class="btn" id="restart">Recommencer (nouveau tirage)</button>
+<button type="button" class="btn btn-ghost" id="change">Changer de série</button>
+</p>
+<p class="legend"><span class="lg ok">Bonne réponse</span> <span class="lg ko">Mauvaise réponse ou sans réponse</span></p>
+</div>
+</section>
+<section id="step-exam" hidden>
+<h2 id="exam-title" class="exam-title"></h2>
+<div id="exam-root"></div>
+<p class="buttons"><button type="button" class="btn btn-alt" id="finish">Terminer et voir la correction</button></p>
+</section>
+<script>var TRAINING = {"E1": {"ex1": [{"term": "Octet", "text": "Plus petite unité de mesure de l'information, composée de 8 bits (en anglais : byte)."}, {"term": "UAL", "text": "Unité Arithmétique et Logique : composant du CPU qui effectue les calculs (addition, comparaison...)."}, {"term": "Bus d'adresses", "text": "Bus qui transporte l'adresse mémoire où se trouve ou doit aller l'information (par exemple : indiquer où lire une donnée en RAM)."}, {"term": "Système d'exploitation", "text": "Logiciel de base principal : il gère les ressources de l'ordinateur (processeur, mémoire, stockage), organise les fichiers et permet à l'utilisateur d'interagir avec la machine et de lancer d'autres logiciels."}], "ex2": [{"text": "Une information est un support de connaissance.", "a": true, "corr": ""}, {"text": "Un traitement manuel est un traitement effectué sans intervention humaine.", "a": false, "corr": "C'est le traitement automatique qui est effectué sans intervention humaine."}, {"text": "Une calculatrice programmable est un exemple de système informatique.", "a": true, "corr": ""}, {"text": "Avec n bits, on peut représenter 2 × n informations différentes.", "a": false, "corr": "Avec n bits, on peut représenter 2^{n} informations."}, {"text": "Le BIOS/UEFI est un programme stocké en ROM qui démarre l'ordinateur.", "a": true, "corr": ""}, {"text": "La fréquence d'un CPU, exprimée en GHz, indique son nombre de cœurs.", "a": false, "corr": "Elle indique le nombre de cycles exécutés par seconde."}, {"text": "Le socket est l'emplacement de la carte mère où se fixent les barrettes de RAM.", "a": false, "corr": "Le socket accueille le CPU ; les barrettes de RAM se placent dans les slots mémoire."}, {"text": "Un logiciel de bureautique sert à produire des textes, des tableaux et des présentations.", "a": true, "corr": ""}], "ex3": {"items": [{"text": "Transcription d'une information dans un langage utilisable par un ordinateur.", "a": "Codage de l'information"}, {"text": "Petites mémoires ultra-rapides intégrées au CPU, pour stocker temporairement les données en cours de traitement.", "a": "Registres"}, {"text": "Bus qui transporte les signaux de synchronisation (lecture/écriture, horloge).", "a": "Bus de commande"}, {"text": "Emplacements de la carte mère destinés aux barrettes de RAM.", "a": "Slots mémoire"}, {"text": "Périphérique qui remplit à la fois le rôle d'entrée et de sortie (ex : écran tactile).", "a": "Périphérique d'entrée / sortie"}, {"text": "Logiciels qui servent à créer, modifier ou lire des images, des sons ou des vidéos.", "a": "Logiciels multimédias"}], "distract": ["Interface", "CPU multi-cœurs", "Fréquence"]}, "ex4": [{"q": "(1101)_{2} = (?)_{10}", "a": 13, "kind": "dec", "detail": "13  (8+4+1)"}, {"q": "(100001)_{2} = (?)_{10}", "a": 33, "kind": "dec", "detail": "33  (32+1)"}, {"q": "(19)_{10} = (?)_{2}", "a": "10011", "kind": "bin", "detail": "10011  (16+2+1)"}, {"q": "(64)_{10} = (?)_{2}", "a": "1000000", "kind": "bin", "detail": "1000000  (2^{6})"}, {"q": "2 Mo = ? Ko", "a": 2048, "kind": "dec", "detail": "2 × 1024 = 2048 Ko"}, {"q": "3072 octets = ? Ko", "a": 3, "kind": "dec", "detail": "3072 ÷ 1024 = 3 Ko"}, {"q": "Combien d'octets représentent 40 bits ?", "a": 5, "kind": "dec", "detail": "40 ÷ 8 = 5 octets"}, {"q": "Représenter (7)_{10} sur 8 bits.", "a": "00000111", "kind": "bin8", "detail": "00000111"}], "ex5": {"s1": {"title": "Schéma 1 — Schéma fonctionnel d'un ordinateur", "img": "assets/entrainement/s1_E1.png", "answers": ["Unités d'entrée", "Unité centrale de traitement (CPU / microprocesseur)", "RAM (mémoire vive)", "ROM (mémoire morte)", "Unités de stockage (mémoire de masse)", "Système de bus"], "bank": ["Unités d'entrée", "Unité centrale de traitement (CPU / microprocesseur)", "Unités de sortie", "Mémoire centrale", "RAM (mémoire vive)", "ROM (mémoire morte)", "Unités de stockage (mémoire de masse)", "Système de bus"]}, "s2": {"title": "Schéma 2 — Les trois types de bus", "img": "assets/entrainement/s2_E1.png", "answers": ["Système de bus", "Bus de données", "Bus d'adresses", "Bus de commande"], "bank": ["Système de bus", "Bus de données", "Bus d'adresses", "Bus de commande"]}}, "title": "Entraînement 1"}, "E2": {"ex1": [{"term": "Matériel (hardware)", "text": "Ensemble des éléments physiques d'un système informatique (tous les éléments qu'on peut voir ou toucher)."}, {"term": "Utilitaire", "text": "Programme qui aide à entretenir, protéger ou optimiser le fonctionnement de l'ordinateur (antivirus, compression de fichiers, nettoyage de disque...)."}, {"term": "Carte d'extension", "text": "Circuit électronique que l'on insère dans un connecteur (slot) de la carte mère pour ajouter ou améliorer une fonctionnalité (carte graphique, carte son, carte réseau)."}, {"term": "Chipset", "text": "Élément de la carte mère qui gère la communication entre les composants."}], "ex2": [{"text": "Les chiffres 0 et 1 sont appelés chiffres binaires.", "a": true, "corr": ""}, {"text": "Le matériel d'un système informatique est abstrait : on ne peut ni le voir ni le toucher.", "a": false, "corr": "C'est le logiciel qui est abstrait ; le matériel est l'ensemble des éléments physiques."}, {"text": "Un ordinateur effectue quatre opérations de base : entrée, traitement, sortie et stockage.", "a": true, "corr": ""}, {"text": "Le bus de données transporte l'adresse mémoire où se trouve l'information.", "a": false, "corr": "C'est le bus d'adresses ; le bus de données transporte les données elles-mêmes."}, {"text": "La RAM est une mémoire très rapide dont le contenu s'efface quand l'ordinateur s'éteint.", "a": true, "corr": ""}, {"text": "Une clé USB est un exemple de mémoire centrale.", "a": false, "corr": "C'est un exemple de mémoire de stockage (mémoire de masse)."}, {"text": "Le port Ethernet (RJ-45) sert aux connexions réseau.", "a": true, "corr": ""}, {"text": "Un logiciel d'application est installé automatiquement avec l'ordinateur.", "a": false, "corr": "Il est installé volontairement par l'utilisateur ; c'est le logiciel de base qui est installé avec l'ordinateur."}], "ex3": {"items": [{"text": "Nombre de cycles exécutés par seconde par un CPU (exprimé en GHz).", "a": "Fréquence"}, {"text": "CPU capable de traiter plusieurs tâches en même temps.", "a": "CPU multi-cœurs"}, {"text": "Programme stocké en ROM qui démarre l'ordinateur avant le chargement du système d'exploitation.", "a": "BIOS / UEFI"}, {"text": "Élément physique qui permet de relier un périphérique à l'unité centrale (cartes d'extension, ports).", "a": "Interface"}, {"text": "Logiciels qui répondent à des besoins spécifiques d'un domaine professionnel (comptabilité, gestion...).", "a": "Logiciels métiers"}, {"text": "Suite d'instructions écrites dans un langage de programmation, destinée à effectuer une tâche précise.", "a": "Programme"}], "distract": ["Slots mémoire", "Périphérique d'entrée / sortie", "Registres"]}, "ex4": [{"q": "(10001)_{2} = (?)_{10}", "a": 17, "kind": "dec", "detail": "17  (16+1)"}, {"q": "(111111)_{2} = (?)_{10}", "a": 63, "kind": "dec", "detail": "63  (32+16+8+4+2+1)"}, {"q": "(29)_{10} = (?)_{2}", "a": "11101", "kind": "bin", "detail": "11101  (16+8+4+1)"}, {"q": "(90)_{10} = (?)_{2}", "a": "1011010", "kind": "bin", "detail": "1011010  (64+16+8+2)"}, {"q": "9 Ko = ? octets", "a": 9216, "kind": "dec", "detail": "9 × 1024 = 9216 octets"}, {"q": "3072 Mo = ? Go", "a": 3, "kind": "dec", "detail": "3072 ÷ 1024 = 3 Go"}, {"q": "Avec 8 bits, combien d'informations différentes peut-on représenter ?", "a": 256, "kind": "dec", "detail": "2^{8} = 256"}, {"q": "Représenter (33)_{10} sur 8 bits.", "a": "00100001", "kind": "bin8", "detail": "00100001"}], "ex5": {"s1": {"title": "Schéma 1 — Schéma fonctionnel d'un ordinateur", "img": "assets/entrainement/s1_E2.png", "answers": ["Unités d'entrée", "Unité centrale de traitement (CPU / microprocesseur)", "Unités de sortie", "Mémoire centrale", "RAM (mémoire vive)", "Unités de stockage (mémoire de masse)"], "bank": ["Unités d'entrée", "Unité centrale de traitement (CPU / microprocesseur)", "Unités de sortie", "Mémoire centrale", "RAM (mémoire vive)", "ROM (mémoire morte)", "Unités de stockage (mémoire de masse)", "Système de bus"]}, "s2": {"title": "Schéma 2 — Le système informatique", "img": "assets/entrainement/s2_E2.png", "answers": ["Système informatique", "Logiciel (software)", "Mémoire centrale", "Logiciel d'application"], "bank": ["Système informatique", "Matériel (hardware)", "Logiciel (software)", "CPU (processeur)", "Mémoire centrale", "Mémoire de stockage (mémoire de masse)", "Logiciel de base", "Logiciel d'application"]}}, "title": "Entraînement 2"}};</script>
+<script src="exam.js"></script>
+<script src="entrainement.js"></script>
+</main>
+<footer class="site-footer">
+<p>Enseignant : Aissa Tahri</p>
+<p>Année scolaire 2026-2027</p>
+</footer>
+<a class="to-top" href="#haut" aria-label="Retour en haut">↑ <span>Retour en haut</span></a>
+<script>
+// Impression : ouvre toutes les corrections
+window.addEventListener("beforeprint", function () {
+  document.querySelectorAll("details").forEach(function (d) { d.open = true; });
+});
+</script>
+</body>
+</html>
