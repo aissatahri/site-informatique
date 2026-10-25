@@ -225,6 +225,8 @@ Nommer les 6 cases numérotées du schéma fonctionnel d'un ordinateur :
 5. La case en bas à droite : ……………………
 6. La case du bas : ……………………
 
+![Schéma fonctionnel d'un ordinateur à compléter (cases numérotées de 1 à 6)](../assets/ch2/schema-fonctionnel-vide.png)
+
 <details>
 <summary>Afficher la correction</summary>
 
@@ -246,6 +248,8 @@ Compléter les cases du schéma du Résumé :
 - c, d, e) les trois éléments du CPU : ……………………
 - f, g) deux exemples d'unités d'entrée : ……………………
 - h, i) deux exemples d'unités de sortie : ……………………
+
+![Schéma du Résumé à compléter (cases repérées par les lettres a à i)](../assets/ch2/schema-resume-vide.png)
 
 <details>
 <summary>Afficher la correction</summary>

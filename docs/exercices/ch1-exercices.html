@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapitre 1 : Exercices - Informatique - Tronc Commun</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<nav class="topnav"><a href="../index.html">Accueil</a><a href="../cours/ch1-definitions.html">Cours</a><a href="ch2-exercices.html">Suivant →</a></nav>
+<main>
+<h1>Chapitre 1 : Exercices</h1>
+<p><em>Module 1 : Généralités sur les systèmes informatiques</em></p>
+<h2>Exercice 1 : Binaire → décimal</h2>
+<p>Convertir en décimal les nombres suivants :</p>
+<ol>
+<li>10011 = ……………………</li>
+<li>110101 = ……………………</li>
+</ol>
+<details>
+<summary>Afficher la correction</summary>
+<ul>
+<li>10011 = 16 + 2 + 1 = <strong>19</strong></li>
+<li>110101 = 32 + 16 + 4 + 1 = <strong>53</strong></li>
+</ul>
+<p><em>Méthode : on additionne les puissances de 2 correspondant aux bits égaux à 1.</em></p>
+</details>
+<h2>Exercice 2 : Décimal → binaire</h2>
+<p>Convertir en binaire les nombres suivants :</p>
+<ol>
+<li>59 = ……………………</li>
+<li>171 = ……………………</li>
+</ol>
+<details>
+<summary>Afficher la correction</summary>
+<ul>
+<li>59 = 32 + 16 + 8 + 2 + 1 = <strong>111011</strong>, soit <strong>00111011</strong> sur 8 bits</li>
+<li>171 = 128 + 32 + 8 + 2 + 1 = <strong>10101011</strong></li>
+</ul>
+<p><em>Méthode : on décompose le nombre en puissances de 2 (ou par divisions successives par 2, en lisant les restes de bas en haut).</em></p>
+</details>
+<h2>Exercice 3 : Représentation des caractères</h2>
+<p>Représenter en binaire les caractères suivants :</p>
+<ol>
+<li>B : …………………………….</li>
+<li>C : …………………………….</li>
+<li>E : …………………………….</li>
+<li>c : …………………………….</li>
+<li>f : …………………………….</li>
+</ol>
+<p>Sachant que : A = 01000001 et a = 01100001</p>
+<p>Sachant que : 1 + 1 = 10 et 1 + 0 = 1</p>
+<details>
+<summary>Afficher la correction</summary>
+<p>Sachant que A = 01000001 et a = 01100001 :</p>
+<ul>
+<li>B = <strong>01000010</strong></li>
+<li>C = <strong>01000011</strong></li>
+<li>E = <strong>01000101</strong></li>
+<li>c = <strong>01100011</strong></li>
+<li>f = <strong>01100110</strong></li>
+</ul>
+<p><em>Méthode : B = A + 1 ; C = A + 2 ; E = A + 4 ; c = a + 2 ; f = a + 5 (chaque lettre : code de A ou a + son rang dans l'alphabet moins 1, addition en binaire).</em></p>
+</details>
+</main>
+</body>
+</html>

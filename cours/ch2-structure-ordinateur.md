@@ -1,4 +1,4 @@
-# Structure de base d'un ordinateur
+# Chapitre 2 : Structure de base d'un ordinateur
 
 *Tronc Commun — Cours d'informatique — Architecture matérielle (Hardware)*
 
@@ -34,7 +34,7 @@ Un ordinateur exécute 4 opérations de base sur l'information :
 
 > **Définition** : Le schéma fonctionnel représente les grandes parties d'un ordinateur et la manière dont l'information circule entre elles : de l'entrée vers le traitement, puis vers la sortie, avec une mémoire pour conserver les données.
 
-[SCHÉMA À COMPLÉTER : voir exercices]
+Voir l'exercice 2 dans les [exercices du chapitre 2](../exercices/ch2-exercices.html).
 
 Toutes les flèches représentent la circulation de l'information, assurée physiquement par le système de bus (voir partie 4).
 
@@ -165,7 +165,7 @@ Un périphérique est tout appareil relié à l'unité centrale et qui n'en fait
 
 > **Exemple** : Clavier, souris, scanner, webcam, microphone, manette de jeu.
 
-[EXERCICE : voir exercices]
+Voir l'exercice 1 (images 1 à 8) dans les [exercices du chapitre 2](../exercices/ch2-exercices.html).
 
 #### b. Périphériques de sortie
 
@@ -173,7 +173,7 @@ Un périphérique est tout appareil relié à l'unité centrale et qui n'en fait
 
 > **Exemple** : Écran (moniteur), imprimante, haut-parleurs, vidéoprojecteur.
 
-[EXERCICE : voir exercices]
+Voir l'exercice 1 (images 9 à 12) dans les [exercices du chapitre 2](../exercices/ch2-exercices.html).
 
 #### c. Périphériques d'entrée/sortie
 
@@ -181,7 +181,7 @@ Un périphérique est tout appareil relié à l'unité centrale et qui n'en fait
 
 > **Exemple** : Écran tactile, casque avec micro intégré, imprimante multifonction (scanner + imprimante), modem/routeur.
 
-[EXERCICE : voir exercices]
+Voir l'exercice 1 (images 13 à 16) dans les [exercices du chapitre 2](../exercices/ch2-exercices.html).
 
 ## 8. La carte mère
 
@@ -206,4 +206,4 @@ Un périphérique est tout appareil relié à l'unité centrale et qui n'en fait
 
 L'ordinateur reçoit des données (entrée), les traite grâce au CPU en utilisant la mémoire centrale (RAM/ROM), les fait circuler via le système de bus, restitue un résultat (sortie), et peut conserver les informations durablement (stockage). Tous ces composants sont reliés physiquement par la carte mère, qui constitue le squelette de l'ordinateur.
 
-[SCHÉMA À COMPLÉTER : voir exercices]
+Voir l'exercice 3 dans les [exercices du chapitre 2](../exercices/ch2-exercices.html).

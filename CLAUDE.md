@@ -12,6 +12,12 @@ Langue : français. Les élèves consultent surtout sur téléphone.
 - /assets : images et CSS
 - Créer ces dossiers s'ils n'existent pas.
 
+## Commandes
+- `python build.py` : régénère le site (nécessite `pip install markdown`).
+- Le site est dans docs/, ne jamais éditer docs/*.html à la main
+  (modifier cours/ ou exercices/ puis relancer la commande).
+- Aperçu local : `python -m http.server 8000 --directory docs` puis http://localhost:8000
+
 ## Règles
 - Site statique : HTML et CSS simples, sans framework.
 - Ne jamais changer le contenu pédagogique sans me le demander.

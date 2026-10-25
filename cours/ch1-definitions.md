@@ -18,11 +18,15 @@ Une information est une connaissance ou donnée ayant un sens, que l'on peut tra
 
 ### 2. Le schéma de traitement
 
-[SCHÉMA : trois cases reliées. Une case « Donnée (entrée) » à gauche et une case « Résultat (sortie) » à droite, reliées par une grosse flèche horizontale allant de la donnée vers le résultat. Une case « Traitement » au-dessus, avec une petite flèche vers le bas pointant sur la grosse flèche.]
+![Schéma de traitement : donnée (entrée), traitement, résultat (sortie)](../assets/ch1/schema-traitement.png)
+
+*Le schéma de traitement*
 
 **Exemple**
 
-[SCHÉMA : même disposition. À gauche la case « What’s your name ? » (entrée), à droite la case « Quel est votre nom ? » (sortie), reliées par une grosse flèche horizontale. Au-dessus, la case « Traduction » avec une flèche vers le bas pointant sur la grosse flèche.]
+![Exemple de traduction : What’s your name ? devient Quel est votre nom ?](../assets/ch1/schema-traduction.png)
+
+*Exemple : la traduction*
 
 ### 3. Traitement automatique
 
@@ -130,7 +134,9 @@ Pour convertir un nombre de la base décimale à la base binaire on divise le no
 
 **Exemple :** (10)<sub>10</sub> = (1010)<sub>2</sub>
 
-[SCHÉMA : divisions successives de 10 par 2. 10 ÷ 2 = 5 reste 0 ; 5 ÷ 2 = 2 reste 1 ; 2 ÷ 2 = 1 reste 0 ; 1 ÷ 2 = 0 reste 1. Une flèche en diagonale indique de lire les restes de bas en haut : 1010.]
+![Divisions successives de 10 par 2, avec les restes](../assets/ch1/division-binaire.png)
+
+*Divisions successives de 10 par 2*
 
 **Exercice :**
 
