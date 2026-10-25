@@ -6,7 +6,9 @@ Dépendance : pip install markdown
 import html
 import re
 import shutil
+import struct
 import unicodedata
+import zlib
 from pathlib import Path
 
 import markdown
@@ -41,6 +43,75 @@ FAVICON_SVG = (
     f"{LOGO_SVG_INNER}</svg>\n"
 )
 
+def make_favicon_ico(size=64, ss=4):
+    """Dessine le livre ouvert du logo (sans dépendance) et l'encode en .ico (PNG intégré)."""
+
+    def bezier(p0, p1, p2, p3, n=16):
+        return [
+            tuple(
+                (1 - t) ** 3 * a + 3 * (1 - t) ** 2 * t * b + 3 * (1 - t) * t**2 * c + t**3 * d
+                for a, b, c, d in zip(p0, p1, p2, p3)
+            )
+            for t in (i / n for i in range(1, n + 1))
+        ]
+
+    book = [(32, 19)]
+    book += bezier((32, 19), (27, 16), (20, 15), (12, 16))
+    book += [(12, 44)]
+    book += bezier((12, 44), (20, 43), (27, 44), (32, 47))
+    book += bezier((32, 47), (37, 44), (44, 43), (52, 44))
+    book += [(52, 16)]
+    book += bezier((52, 16), (44, 15), (37, 16), (32, 19))
+
+    def inside(poly, x, y):
+        c = False
+        for (x1, y1), (x2, y2) in zip(poly, poly[1:] + poly[:1]):
+            if (y1 > y) != (y2 > y) and x < x1 + (y - y1) * (x2 - x1) / (y2 - y1):
+                c = not c
+        return c
+
+    def in_round_rect(x, y, r=14):
+        cx, cy = min(max(x, r), 64 - r), min(max(y, r), 64 - r)
+        return (x - cx) ** 2 + (y - cy) ** 2 <= r * r
+
+    navy, white, gold = (0x1F, 0x3A, 0x5F), (255, 255, 255), (0xC8, 0x96, 0x2E)
+    k = 64 / (size * ss)
+    raw = bytearray()
+    for py in range(size):
+        raw.append(0)  # filtre PNG : aucun
+        for px in range(size):
+            r = g = b = a = 0
+            for sy in range(ss):
+                for sx in range(ss):
+                    x, y = (px * ss + sx + 0.5) * k, (py * ss + sy + 0.5) * k
+                    if not in_round_rect(x, y):
+                        continue
+                    if 30.5 <= x <= 33.5 and 19 <= y <= 47:
+                        col = gold
+                    elif inside(book, x, y):
+                        col = white
+                    else:
+                        col = navy
+                    r, g, b, a = r + col[0], g + col[1], b + col[2], a + 255
+            n = ss * ss
+            cnt = a // 255
+            raw += bytes((r // cnt, g // cnt, b // cnt, a // n) if cnt else (0, 0, 0, 0))
+
+    def chunk(tag, data):
+        c = struct.pack(">I", len(data)) + tag + data
+        return c + struct.pack(">I", zlib.crc32(tag + data))
+
+    png = (
+        b"\x89PNG\r\n\x1a\n"
+        + chunk(b"IHDR", struct.pack(">IIBBBBB", size, size, 8, 6, 0, 0, 0))
+        + chunk(b"IDAT", zlib.compress(bytes(raw), 9))
+        + chunk(b"IEND", b"")
+    )
+    header = struct.pack("<HHH", 0, 1, 1)
+    entry = struct.pack("<BBBBHHII", size, size, 0, 0, 1, 32, len(png), 22)
+    return header + entry + png
+
+
 PAGE = """<!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -48,6 +119,7 @@ PAGE = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{description}">
+<link rel="icon" href="{root}favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="{root}favicon.svg">
 <link rel="stylesheet" href="{root}style.css">
 </head>
@@ -312,6 +384,7 @@ def main():
     shutil.copytree(ROOT / "assets", DOCS / "assets")
 
     write(DOCS / "favicon.svg", FAVICON_SVG)
+    (DOCS / "favicon.ico").write_bytes(make_favicon_ico())
     write(DOCS / "index.html", index_page(cours, exercices))
     for kind, pages in (("cours", cours), ("exercices", exercices)):
         for num, (stem, *_rest) in pages.items():
