@@ -21,13 +21,42 @@ SCHOOL = "Lycée Qadi Ibn Arabi"
 TEACHER = "Aissa Tahri"
 YEAR = "2026-2027"
 
+# ---------------------------------------------------------------------------
+# CONFIGURATION DU CONTENU
+# Pour chaque module : son titre et ses chapitres (liste vide = module « Bientôt »).
+# Pour chaque chapitre : le nom (sans .md) du fichier dans cours/, exercices/, tp/.
+#   - "cours" est obligatoire ; "exercices" et "tp" sont optionnels (omis ou None).
+# Un module est actif s'il a au moins un chapitre.
+# ---------------------------------------------------------------------------
 MODULES = [
-    "Généralités sur les systèmes informatiques",
-    "Les logiciels",
-    "Algorithme et programmation",
-    "Réseaux et internet",
+    {
+        "title": "Généralités sur les systèmes informatiques",
+        "chapters": [
+            {"cours": "ch1-definitions", "exercices": "ch1-exercices"},
+            {"cours": "ch2-structure-ordinateur", "exercices": "ch2-exercices"},
+            {"cours": "ch3-logiciels", "exercices": "ch3-exercices"},
+        ],
+    },
+    {
+        "title": "Les logiciels",
+        "chapters": [
+            {
+                "cours": "m2-ch1-systeme-exploitation",
+                "exercices": "m2-ch1-exercices",
+                "tp": "m2-ch1-tp",
+            },
+        ],
+    },
+    {"title": "Algorithme et programmation", "chapters": []},
+    {"title": "Réseaux et internet", "chapters": []},
 ]
-ACTIVE_MODULE = 0
+
+# Types de pages : (clé, dossier, libellé, classe du bouton d'accueil)
+KINDS = [
+    ("cours", "cours", "Cours", "btn"),
+    ("exercices", "exercices", "Exercices", "btn btn-alt"),
+    ("tp", "tp", "TP", "btn btn-alt"),
+]
 
 # Livre ouvert simple, utilisé comme logo (si assets/logo.png n'existe pas) et comme favicon
 LOGO_SVG_INNER = (
@@ -153,7 +182,13 @@ window.addEventListener("beforeprint", function () {{
 </html>
 """
 
-LABELS = {"Définition": "definition", "Exemple": "exemple", "Remarque": "remarque"}
+LABELS = {
+    "Définition": "definition",
+    "Exemple": "exemple",
+    "Remarque": "remarque",
+    "À retenir": "retenir",
+    "Attention": "attention",
+}
 
 
 def convert(text):
@@ -190,7 +225,9 @@ def style_quotes(out):
         return f'<blockquote class="note note-{LABELS[m.group(1)]}"><p><strong>{m.group(1)}</strong>'
 
     return re.sub(
-        r"<blockquote>\s*<p><strong>(Définition|Exemple|Remarque)</strong>", repl, out
+        r"<blockquote>\s*<p><strong>(Définition|Exemple|Remarque|À retenir|Attention)</strong>",
+        repl,
+        out,
     )
 
 
@@ -221,17 +258,32 @@ def title_of(md_text, fallback):
     return m.group(1).strip() if m else fallback
 
 
-def load(folder):
-    """Retourne {numéro de chapitre: (fichier, titre, html, sommaire)}."""
-    pages = {}
-    for path in sorted((ROOT / folder).glob("*.md")):
-        m = re.match(r"ch(\d+)", path.name)
-        if not m:
-            continue
-        text = path.read_text(encoding="utf-8")
-        body, toc = render(text)
-        pages[int(m.group(1))] = (path.stem, title_of(text, path.stem), body, toc)
-    return pages
+def load_all():
+    """Lit la configuration MODULES et retourne une liste de modules.
+
+    Chaque module : {"title", "chapters": [{kind: (fichier, titre, html, sommaire)}]}.
+    Un fichier optionnel absent du disque est simplement ignoré.
+    """
+    modules = []
+    for mod in MODULES:
+        chapters = []
+        for conf in mod["chapters"]:
+            chapter = {}
+            for kind, folder, _label, _cls in KINDS:
+                stem = conf.get(kind)
+                if not stem:
+                    continue
+                path = ROOT / folder / f"{stem}.md"
+                if not path.exists():
+                    if kind == "cours":
+                        raise SystemExit(f"Fichier obligatoire introuvable : {path}")
+                    continue
+                text = path.read_text(encoding="utf-8")
+                body, toc = render(text)
+                chapter[kind] = (stem, title_of(text, stem), body, toc)
+            chapters.append(chapter)
+        modules.append({"title": mod["title"], "chapters": chapters})
+    return modules
 
 
 def logo_html():
@@ -240,25 +292,25 @@ def logo_html():
     return LOGO_SVG
 
 
-def breadcrumb(num):
+def breadcrumb(mod_idx, num):
     return (
         '<nav class="breadcrumb" aria-label="Fil d\'Ariane"><ol>'
         '<li><a href="../index.html">Accueil</a></li>'
-        '<li><a href="../index.html#module-1">Module 1</a></li>'
+        f'<li><a href="../index.html#module-{mod_idx + 1}">Module {mod_idx + 1}</a></li>'
         f'<li aria-current="page">Chapitre {num}</li>'
         "</ol></nav>"
     )
 
 
-def switcher(kind, num, cours, exercices):
+def switcher(kind, chapter):
     items = []
-    for k, label, pages in (("cours", "Cours", cours), ("exercices", "Exercices", exercices)):
-        if num not in pages:
+    for k, folder, label, _cls in KINDS:
+        if k not in chapter:
             continue
         if k == kind:
             items.append(f'<span class="tab current" aria-current="page">{label}</span>')
         else:
-            items.append(f'<a class="tab" href="../{k}/{pages[num][0]}.html">{label}</a>')
+            items.append(f'<a class="tab" href="../{folder}/{chapter[k][0]}.html">{label}</a>')
     return '<div class="tabs">' + "".join(items) + "</div>" if len(items) > 1 else ""
 
 
@@ -269,7 +321,9 @@ def toc_html(toc):
     return f'<nav class="toc" aria-label="Table des matières"><h2>Table des matières</h2><ol>{lis}</ol></nav>'
 
 
-def pager(kind, num, pages):
+def pager(kind, num, chapters):
+    """Précédent / Suivant limités aux chapitres du module qui ont une page de ce type."""
+    pages = {n: ch[kind] for n, ch in enumerate(chapters, 1) if kind in ch}
     nums = sorted(pages)
     i = nums.index(num)
     prev = nxt = '<span></span>'
@@ -301,7 +355,7 @@ def make_page(title, description, root, body):
     )
 
 
-def index_page(cours, exercices, n_series):
+def index_page(modules, n_series):
     intro = (
         "Bienvenue sur le site de cours d'informatique : retrouvez ici les cours "
         "et les exercices corrigés de l'année."
@@ -314,9 +368,10 @@ def index_page(cours, exercices, n_series):
         '<h2 class="section-title">Les modules</h2>',
         '<div class="modules">',
     ]
-    for i, name in enumerate(MODULES):
-        active = i == ACTIVE_MODULE
-        count = len(cours) if active else 0
+    for i, mod in enumerate(modules):
+        name = mod["title"]
+        count = len(mod["chapters"])
+        active = count > 0
         if count == 0:
             count_txt = "Chapitres à venir"
         else:
@@ -346,22 +401,22 @@ def index_page(cours, exercices, n_series):
     )
     parts.append("</div>")
 
-    parts.append(f'<section class="chapters" id="module-{ACTIVE_MODULE + 1}">')
-    parts.append(
-        f"<h2>Module {ACTIVE_MODULE + 1} : {html.escape(MODULES[ACTIVE_MODULE])}</h2>"
-    )
-    for num in sorted(cours):
-        stem, title, _, _ = cours[num]
-        parts.append('<div class="chapter">')
-        parts.append(f"<h3>{html.escape(title)}</h3>")
-        parts.append('<p class="buttons">')
-        parts.append(f'<a class="btn" href="cours/{stem}.html">Cours</a>')
-        if num in exercices:
-            parts.append(
-                f'<a class="btn btn-alt" href="exercices/{exercices[num][0]}.html">Exercices</a>'
-            )
-        parts.append("</p></div>")
-    parts.append("</section>")
+    for i, mod in enumerate(modules):
+        if not mod["chapters"]:
+            continue
+        parts.append(f'<section class="chapters" id="module-{i + 1}">')
+        parts.append(f"<h2>Module {i + 1} : {html.escape(mod['title'])}</h2>")
+        for chapter in mod["chapters"]:
+            parts.append('<div class="chapter">')
+            parts.append(f"<h3>{html.escape(chapter['cours'][1])}</h3>")
+            parts.append('<p class="buttons">')
+            for kind, folder, label, cls in KINDS:
+                if kind in chapter:
+                    parts.append(
+                        f'<a class="{cls}" href="{folder}/{chapter[kind][0]}.html">{label}</a>'
+                    )
+            parts.append("</p></div>")
+        parts.append("</section>")
     return make_page(
         f"{SITE_TITLE} - {SCHOOL}",
         f"{SITE_TITLE} au {SCHOOL} : cours et exercices corrigés, année scolaire {YEAR}.",
@@ -370,17 +425,17 @@ def index_page(cours, exercices, n_series):
     )
 
 
-def chapter_page(kind, num, cours, exercices):
-    pages = cours if kind == "cours" else exercices
-    stem, title, body, toc = pages[num]
-    label = "Cours" if kind == "cours" else "Exercices"
+def chapter_page(kind, mod_idx, num, chapters):
+    chapter = chapters[num - 1]
+    stem, title, body, toc = chapter[kind]
+    label = next(l for k, _f, l, _c in KINDS if k == kind)
     inner = (
-        breadcrumb(num)
-        + switcher(kind, num, cours, exercices)
+        breadcrumb(mod_idx, num)
+        + switcher(kind, chapter)
         + '<div class="layout">'
         + toc_html(toc)
         + f'<article class="content">{body}</article></div>'
-        + pager(kind, num, pages)
+        + pager(kind, num, chapters)
     )
     return make_page(
         f"{title} - {SITE_TITLE}",
@@ -433,12 +488,12 @@ def training_page(training):
 
 
 def main():
-    cours, exercices = load("cours"), load("exercices")
+    modules = load_all()
     src = ROOT / "entrainement"
     training = json.loads((src / "source" / "training.json").read_text(encoding="utf-8"))
 
     # Pages HTML régénérées ; assets recopiés (les liens ../assets/ restent valides)
-    for sub in ("cours", "exercices"):
+    for _k, sub, _l, _c in KINDS:
         shutil.rmtree(DOCS / sub, ignore_errors=True)
     shutil.rmtree(DOCS / "assets", ignore_errors=True)
     shutil.copytree(ROOT / "assets", DOCS / "assets")
@@ -448,11 +503,21 @@ def main():
     shutil.copy(src / "source" / "exam.js", DOCS / "exam.js")
     shutil.copy(src / "entrainement.js", DOCS / "entrainement.js")
     write(DOCS / "entrainement.html", training_page(training))
-    write(DOCS / "index.html", index_page(cours, exercices, len(training)))
-    for kind, pages in (("cours", cours), ("exercices", exercices)):
-        for num, (stem, *_rest) in pages.items():
-            write(DOCS / kind / f"{stem}.html", chapter_page(kind, num, cours, exercices))
-    print(f"Site généré dans {DOCS} ({len(cours)} cours, {len(exercices)} exercices)")
+    write(DOCS / "index.html", index_page(modules, len(training)))
+    counts = {k: 0 for k, *_ in KINDS}
+    for mod_idx, mod in enumerate(modules):
+        for num, chapter in enumerate(mod["chapters"], 1):
+            for kind, folder, _l, _c in KINDS:
+                if kind in chapter:
+                    write(
+                        DOCS / folder / f"{chapter[kind][0]}.html",
+                        chapter_page(kind, mod_idx, num, mod["chapters"]),
+                    )
+                    counts[kind] += 1
+    print(
+        f"Site généré dans {DOCS} ({counts['cours']} cours, "
+        f"{counts['exercices']} exercices, {counts['tp']} TP)"
+    )
 
 
 if __name__ == "__main__":

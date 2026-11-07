@@ -9,8 +9,15 @@ Langue : français. Les élèves consultent surtout sur téléphone.
 - /ressources : PDF originaux (ne pas modifier)
 - /cours : chapitres en Markdown
 - /exercices : exercices et corrections
+- /tp : travaux pratiques en Markdown (pages générées dans docs/tp/)
 - /assets : images et CSS
 - Créer ces dossiers s'ils n'existent pas.
+
+## Ajouter un chapitre
+1. Déposer les fichiers Markdown dans cours/ (obligatoire), exercices/ et tp/ (optionnels).
+2. Dans build.py, section CONFIGURATION (MODULES), ajouter le chapitre au module voulu :
+   {"cours": "nom", "exercices": "nom", "tp": "nom"} (noms sans .md).
+3. Lancer `python build.py` : accueil, navigation et Précédent/Suivant sont mis à jour.
 
 ## Commandes
 - `python build.py` : régénère le site (nécessite `pip install markdown`).

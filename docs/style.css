@@ -19,6 +19,12 @@
   --rem-bg: #eef0f3;
   --rem-border: #9aa3b0;
   --rem-label: #4a5260;
+  --ret-bg: #e9f7ee;
+  --ret-border: #4caf72;
+  --ret-label: #1f6b3d;
+  --att-bg: #fff1e0;
+  --att-border: #f0993a;
+  --att-label: #a04a00;
   --radius: 12px;
   --tap: 44px;
 }
@@ -100,6 +106,20 @@ li { margin: 0.3em 0; }
 a { color: #1d5fa8; }
 
 img { max-width: 100%; height: auto; }
+
+/* Schémas du cours : image centrée, bordure fine, légende en petit centré */
+.content p:has(> img[src$=".svg"]) { margin-bottom: 0.3em; text-align: center; }
+.content p > img[src$=".svg"] {
+  display: block;
+  margin: 0 auto;
+  border: 1px solid var(--border, #ccc);
+  border-radius: 4px;
+}
+.content p:has(> img[src$=".svg"]) + p {
+  text-align: center;
+  font-size: 0.85rem;
+  margin-top: 0.3em;
+}
 
 /* Fil d'Ariane */
 .breadcrumb ol {
@@ -191,6 +211,10 @@ blockquote > :last-child { margin-bottom: 0; }
 .note-exemple > p:first-child > strong:first-child { background: var(--ex-label); }
 .note-remarque { background: var(--rem-bg); border-left-color: var(--rem-border); }
 .note-remarque > p:first-child > strong:first-child { background: var(--rem-label); }
+.note-retenir { background: var(--ret-bg); border-left-color: var(--ret-border); }
+.note-retenir > p:first-child > strong:first-child { background: var(--ret-label); }
+.note-attention { background: var(--att-bg); border-left-color: var(--att-border); }
+.note-attention > p:first-child > strong:first-child { background: var(--att-label); }
 
 code { background: #eceff2; padding: 1px 5px; border-radius: 4px; font-size: 0.92em; }
 pre { overflow-x: auto; background: #eceff2; padding: 12px; border-radius: 8px; }
