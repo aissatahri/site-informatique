@@ -1,196 +1,138 @@
-/* Styles spécifiques au simulateur clavier - ajustés :
-   - textarea ex1/ex2 : hauteur réduite
-   - tab zones : grille 2x4 (4 colonnes, 2 lignes)
-   - ex5/ex6 target : affichage large des caractères (monospace, espacement)
-   - amélioration : alignement des boutons option (QCM) et ajustement des actions/buttons
-*/
+/* Simulateur clavier : clavier interactif + exercices.
+   Le clavier est dessiné en HTML/CSS : zones et touches partagent la même grille,
+   donc les cadres colorés restent alignés quelle que soit la taille de l'écran. */
 
-/* Scope général */
-#keyboard-illustration.keyboard-wrapper { position:relative; width:100%; border-radius:8px; overflow:hidden; background:#fff; }
-
-/* Image */
-#keyboard-illustration #kb-img { width:100%; height:auto; display:block; user-select:none; -webkit-user-drag:none; }
-
-/* Overlay contenant les zones (responsive via % appliqués par overlay.js) */
-#keyboard-illustration .overlay {
-  position:absolute;
-  left:0; top:0; width:100%; height:100%;
-  pointer-events:none; z-index:2;
+/* ---------- Clavier interactif ---------- */
+.kb-modes { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 4px; }
+main button.kb-mode {
+  color: var(--navy);
+  background: var(--surface);
+  border: 1px solid var(--navy);
+  border-radius: 999px;
 }
+main button.kb-mode.on { color: #fff; background: var(--navy); }
+.kb-prompt { margin: 8px 0; font-weight: 600; min-height: 3em; }
 
-/* Zone: styles spécifiques et forte priorité */
-#keyboard-illustration .overlay .zone {
-  position:absolute !important;
-  border-radius:6px !important;
-  box-sizing:border-box !important;
-  pointer-events:auto !important;
-  transition: transform .12s, box-shadow .12s, opacity .12s;
-  background: rgba(255,0,0,0.10) !important;
-  border: 2px solid rgba(255,255,255,0.85) !important;
+.kb-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
+.kb-stage {
+  position: relative;
+  min-width: 620px;
+  width: 100%;
+  font-size: clamp(6px, 1.05vw, 11px);
+  background: #f4f6f9;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  user-select: none;
 }
+@media (max-width: 700px) { .kb-stage { font-size: 6.5px; } }
 
-/* Couleurs distinctes */
-#keyboard-illustration .overlay .zone.zone-fn    { background: rgba(255,165,0,0.20) !important; border-color: rgba(255,165,0,0.95) !important; }
-#keyboard-illustration .overlay .zone.zone-alpha { background: rgba(220,0,0,0.14) !important; border-color: rgba(220,0,0,0.95) !important; }
-#keyboard-illustration .overlay .zone.zone-navi  { background: rgba(0,90,255,0.10) !important; border-color: rgba(0,90,255,0.95) !important; }
-#keyboard-illustration .overlay .zone.zone-num   { background: rgba(120,0,120,0.10) !important; border-color: rgba(120,0,120,0.95) !important; }
-
-/* Hover */
-#keyboard-illustration .overlay .zone:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(12,24,60,0.12); cursor:pointer; }
-
-/* -------------------------
-   Ajustements demandés
-   ------------------------- */
-
-/* 1) Réduire la hauteur des textarea ex1 et ex2 (minimiser la hauteur) */
-#ex1, #ex2 {
-  min-height:90px !important;   /* hauteur réduite pour ces exercices */
-  max-height:220px;
-  padding:10px !important;
-  font-size:15px !important;
-  line-height:1.4;
-  resize:vertical;               /* l'utilisateur peut agrandir si besoin */
-}
-
-/* 2) Tabulation : disposition en grille 2 lignes × 4 colonnes */
-#tab-zones {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 colonnes */
-  grid-auto-rows: minmax(44px, auto);
-  gap: 10px;
-  align-items: center;
-}
-/* rendre les inputs visibles, pleine largeur des cellules */
-#tab-zones input {
-  width: 100% !important;
-  padding: 10px 12px !important;
-  font-size: 15px;
+/* Cadres des zones */
+.kb-stage .kb-zone {
+  position: absolute;
+  min-height: 0;
+  padding: 0;
+  border: 2px solid var(--zc);
   border-radius: 8px;
-  border: 1px solid #d7e0ea;
-  box-sizing: border-box;
+  background: var(--zbg);
+  cursor: pointer;
+  transition: box-shadow .12s, transform .12s, background .12s;
 }
-
-/* mobile : passer à 2 colonnes pour lisibilité */
-@media (max-width: 640px) {
-  #tab-zones {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.kb-stage .kb-zone:hover, .kb-stage .kb-zone:focus-visible {
+  box-shadow: 0 4px 14px rgba(12, 24, 60, .25);
+  outline: none;
+  filter: none;
 }
+.kb-stage .kb-zone.selected { background: var(--zbg2); box-shadow: 0 0 0 3px var(--zc); }
+.kb-stage .kb-zone.good { background: #bfe8cc; border-color: #2e7d4f; box-shadow: 0 0 0 3px #2e7d4f; }
+.kb-stage .kb-zone.bad { background: #f7c5c0; border-color: #c0392b; box-shadow: 0 0 0 3px #c0392b; }
 
-/* 3) Agrandir / élargir l'affichage des caractères pour Shift (ex5) et AltGr (ex6) */
+.zone-fn    { --zc: #e8920c; --zbg: rgba(255, 165, 0, .16);  --zbg2: rgba(255, 165, 0, .34); }
+.zone-alpha { --zc: #d94a4a; --zbg: rgba(220, 0, 0, .09);    --zbg2: rgba(220, 0, 0, .22); }
+.zone-navi  { --zc: #3b6fe0; --zbg: rgba(0, 90, 255, .10);   --zbg2: rgba(0, 90, 255, .24); }
+.zone-num   { --zc: #8e3fb0; --zbg: rgba(120, 0, 120, .10);  --zbg2: rgba(120, 0, 120, .24); }
+
+/* Touches (au-dessus des cadres, les clics traversent vers la zone) */
+.kb-key {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: .3em .35em;
+  overflow: hidden;
+  color: #1e2430;
+  background: #fff;
+  border: 1px solid #aeb6c2;
+  border-bottom-width: 2px;
+  border-radius: .35em;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, .08);
+  pointer-events: none;
+  line-height: 1.1;
+  font-style: normal;
+  transition: background .08s, transform .08s;
+}
+.kb-key i { font-style: normal; font-size: 1em; color: #5b6573; }
+.kb-key b { font-size: 1.15em; font-weight: 600; align-self: flex-start; margin-top: auto; }
+.kb-key.kb-long b { font-size: .8em; line-height: 1.15; }
+.kb-key.found { background: #e3f4ea; border-color: #7bbf95; }
+.kb-key.pressed { background: var(--gold); border-color: var(--gold-dark); transform: translateY(1px); }
+
+.kb-legend { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 2px; padding: 0; list-style: none; }
+.kb-legend li { margin: 0; }
+main button.kb-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+  font-weight: 600;
+  font-size: .95rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.kb-dot { display: inline-block; flex: none; width: 14px; height: 14px; border-radius: 4px; background: var(--zbg2); border: 2px solid var(--zc); }
+.kb-info h3 { display: flex; align-items: center; gap: 8px; }
+.kb-info small { font-weight: 400; color: var(--muted); }
+
+/* Testeur de touches */
+.kb-tester {
+  margin: 12px 0 8px;
+  padding: 18px 14px;
+  text-align: center;
+  background: var(--bg);
+  border: 2px dashed #9aa3b0;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+.kb-tester.active { border-color: var(--navy); border-style: solid; background: var(--def-bg); }
+.kb-result { min-height: 2.2em; }
+.kb-progress { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 4px 0 0; }
+
+/* ---------- Exercices ---------- */
+#ex1, #ex2 { min-height: 90px; max-height: 220px; font-size: 15px; line-height: 1.4; resize: vertical; }
+
+#tab-zones { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: minmax(44px, auto); gap: 10px; align-items: center; }
+#tab-zones input { width: 100%; font-size: 15px; }
+#tab-zones input:focus { outline: none; border-color: #7aa7ff; box-shadow: 0 6px 18px rgba(122, 167, 255, .12); }
+@media (max-width: 640px) { #tab-zones { grid-template-columns: repeat(2, 1fr); } }
+
+/* Chaînes cibles Shift / AltGr */
 #ex5-target, #ex6-target {
   display: block;
   width: 100%;
   padding: 12px 14px;
   margin-bottom: 8px;
-  border-radius: 8px;
   background: #f7fbff;
-  border: 1px dashed #dbeeff;
-  font-family: "Courier New", Courier, monospace; /* monospace pour alignement des caractères */
-  font-size: 18px;         /* plus grand */
-  letter-spacing: 8px;     /* espacement large entre caractères */
-  white-space: pre-wrap;   /* conserve les espaces et passages à la ligne */
-  overflow-x: auto;        /* si trop long, permettre défilement horizontal */
-  box-sizing: border-box;
-}
-
-/* S'assurer que l'input suivant la cible est clairement séparé */
-#ex5, #ex6 {
-  margin-bottom: 6px;
-  padding: 10px 12px;
-  font-size: 15px;
-}
-
-/* Maintenir l'éditeur overlay visible au dessus */
-#overlay-editor { position:relative; z-index:20 !important; pointer-events:auto; }
-
-/* Petite amélioration visuelle pour que les zones de tabulation restent distinctes */
-#tab-zones input:focus {
-  outline: none;
-  border-color: #7aa7ff;
-  box-shadow: 0 6px 18px rgba(122,167,255,0.12);
-}
-
-/* Empêcher que d'autres règles globales n'annulent l'affichage */
-#keyboard-illustration, #keyboard-illustration * { -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
-
-/* -------------------------
-   ALIGNEMENT DES BOUTONS OPTION (QCM)
-   ------------------------- */
-
-/* Faire des labels QCM des conteneurs flex pour aligner l'input et le texte verticalement */
-#qcm-form .q label {
-  display: flex;
-  align-items: center;    /* centre verticalement le radio et le texte */
-  gap: 10px;              /* espace entre le bouton et le texte */
-  padding: 6px 0;
-  cursor: pointer;
-  line-height: 1.3;
-}
-
-/* Forcer l'input radio/checkbox à ne pas décaler (taille constante) */
-#qcm-form .q label input[type="radio"],
-#qcm-form .q label input[type="checkbox"] {
-  flex: 0 0 auto;
-  margin: 0;
-  width: 18px;
-  height: 18px;
-  vertical-align: middle;
-}
-
-/* S'assurer que le texte du label occupe le reste et se wrap proprement */
-#qcm-form .q label > span,
-#qcm-form .q label > strong {
-  flex: 1 1 auto;
-  min-width: 0; /* allow text wrapping inside flex item */
-}
-
-/* Si le label contient uniquement un text node (pas d'élément span), forcer l'affichage inline-block */
-#qcm-form .q label { white-space: normal; }
-
-/* Amélioration pour titres/questions */
-#qcm-form .q .q-title {
-  margin-bottom: 6px;
-  font-weight: 600;
-}
-
-/* Amélioration responsive: sur très petits écrans réduire l'espacement */
-@media (max-width: 420px) {
-  #qcm-form .q label { gap: 8px; font-size: 15px; }
-  #qcm-form .q label input[type="radio"] { width:16px; height:16px; }
-}
-
-/* -------------------------
-   ACTIONS / BOUTONS (alignement)
-   ------------------------- */
-
-/* rendre le groupe d'actions flexible et adaptatif */
-#qcm-form .actions,
-.section-actions, .exercise .actions {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  flex-wrap: wrap; /* permet aux boutons de passer à la ligne si l'espace manque */
-}
-
-/* Buttons secondaires homogènes */
-#qcm-form .actions button,
-.exercise .actions button {
-  padding: 8px 12px;
+  border: 1px dashed #b5d3ee;
   border-radius: 8px;
-  font-size: 14px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 18px;
+  letter-spacing: 6px;
+  white-space: pre-wrap;
+  overflow-x: auto;
 }
+#ex5, #ex6 { margin-bottom: 6px; font-size: 15px; }
 
-/* Forcer les boutons d'option à ne pas étirer tout le conteneur */
-#qcm-form .q { display:block; }
-
-/* Si tu utilises des labels sans span, voici une règle utile pour que le texte ne pousse pas le radio : */
-#qcm-form .q label input[type="radio"] + * { overflow-wrap: break-word; }
-
-/* Petit ajustement visuel pour focus */
-#qcm-form .q label input[type="radio"]:focus {
-  outline: 2px solid rgba(122,167,255,0.28);
-  outline-offset: 2px;
-}
-
-/* Fin du fichier */
+/* QCM */
+#qcm-form .q label { display: flex; align-items: center; gap: 10px; padding: 6px 0; cursor: pointer; line-height: 1.3; }
+#qcm-form .q label input[type="radio"] { flex: 0 0 auto; margin: 0; width: 18px; height: 18px; }
+#qcm-form .q .q-title { margin-bottom: 6px; font-weight: 600; }
+@media (max-width: 420px) { #qcm-form .q label { gap: 8px; font-size: 15px; } }

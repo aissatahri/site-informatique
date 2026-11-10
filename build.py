@@ -495,6 +495,63 @@ def training_page(training):
     )
 
 
+JEUX_TABS = [
+    ("click", "Clics", "click.html"),
+    ("dnd", "Glisser-déposer", "dnd.html"),
+    ("keyboard", "Clavier", "keyboard/index.html"),
+]
+
+
+def jeux_nav(key, site_root, jroot):
+    """Fil d'Ariane et onglets des activités (jeux/)."""
+    label = next((t for k, t, _h in JEUX_TABS if k == key), None)
+    crumb = (
+        '<nav class="breadcrumb" aria-label="Fil d\'Ariane"><ol>'
+        f'<li><a href="{site_root}index.html">Accueil</a></li>'
+    )
+    if label:
+        crumb += f'<li><a href="{jroot}index.html">Jeux</a></li><li aria-current="page">{label}</li>'
+    else:
+        crumb += '<li aria-current="page">Jeux</li>'
+    crumb += "</ol></nav>"
+    if not label:
+        return crumb
+    tabs = []
+    for k, text, href in JEUX_TABS:
+        if k == key:
+            tabs.append(f'<span class="tab current" aria-current="page">{text}</span>')
+        else:
+            tabs.append(f'<a class="tab" href="{jroot}{href}">{text}</a>')
+    return crumb + '<div class="tabs">' + "".join(tabs) + "</div>"
+
+
+def build_jeux():
+    """Jeux souris / clavier : jeux/*.html sont des fragments, habillés ici comme le reste du site."""
+    src, dst = ROOT / "jeux", DOCS / "jeux"
+    shutil.rmtree(dst, ignore_errors=True)
+    shutil.copytree(src, dst, ignore=shutil.ignore_patterns("*.html"))
+    for page in src.rglob("*.html"):
+        rel = page.relative_to(src)
+        depth = len(rel.parts) - 1
+        site_root, jroot = "../" * (depth + 1), "../" * depth
+        text = page.read_text(encoding="utf-8")
+        m = re.match(r"<!--JEUX_NAV:(\w+)-->\s*", text)
+        if not m:
+            raise SystemExit(f"Marqueur <!--JEUX_NAV:...--> manquant : {page}")
+        key, body = m.group(1), text[m.end():]
+        title = title_of("# " + (re.search(r"<h1>(.*?)</h1>", body, re.S) or [0, "Jeux"])[1], "Jeux")
+        out = make_page(
+            f"{title} - Jeux - {SITE_TITLE}",
+            f"Jeux d'informatique (souris et clavier), Tronc Commun. {SCHOOL}, {YEAR}.",
+            site_root,
+            jeux_nav(key, site_root, jroot) + body,
+        )
+        css = f'<link rel="stylesheet" href="{jroot}jeux.css">\n'
+        if key == "keyboard":
+            css += '<link rel="stylesheet" href="style.css">\n'
+        write(dst / rel, out.replace("</head>", css + "</head>", 1))
+
+
 def main():
     modules = load_all()
     src = ROOT / "entrainement"
@@ -505,9 +562,7 @@ def main():
         shutil.rmtree(DOCS / sub, ignore_errors=True)
     shutil.rmtree(DOCS / "assets", ignore_errors=True)
     shutil.copytree(ROOT / "assets", DOCS / "assets")
-    # Jeux souris / clavier : pages autonomes recopiées telles quelles
-    shutil.rmtree(DOCS / "jeux", ignore_errors=True)
-    shutil.copytree(ROOT / "jeux", DOCS / "jeux")
+    build_jeux()
 
     write(DOCS / "favicon.svg", FAVICON_SVG)
     (DOCS / "favicon.ico").write_bytes(make_favicon_ico())

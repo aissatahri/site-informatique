@@ -1,70 +1,30 @@
-<!doctype html>
-<html lang="fr">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Jeu Clics — 7×7</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="topbar">
-    <div class="container topbar-inner">
-      <a class="logo" href="index.html">🎓 Jeux pédagogiques</a>
-      <nav aria-label="Navigation principale">
-        <a href="index.html">Accueil</a>
-        <a href="click.html" class="active" aria-current="page">Clics</a>
-        <a href="dnd.html">Glisser-déposer</a>
-        <a href="keyboard/index.html">Clavier</a>
-      </nav>
-    </div>
+<!--JEUX_NAV:click-->
+<h1>Types de clics</h1>
+<p>Clic gauche, clic droit ou double-clic : fais le bon geste sur chaque case pour la faire disparaître. Choisis ton niveau, clique sur « Démarrer » et vise zéro erreur !</p>
+
+<div class="controls">
+  <label class="control-inline">Niveau
+    <select id="levelSelect" class="input">
+      <option value="facile">Facile — 4×4 (gauche / droit)</option>
+      <option value="moyen">Moyen — 5×5</option>
+      <option value="difficile" selected>Difficile — 7×7</option>
+    </select>
+  </label>
+  <div class="btn-group">
+    <button id="startBtn" class="btn" type="button">Démarrer</button>
+    <button id="newGrid" class="btn btn-ghost" type="button">Nouvelle grille</button>
   </div>
-  <header class="page-title">
-    <div class="container">
-      <h1>Types de clics</h1>
-      <p class="tag">Clic gauche • Clic droit • Double‑clic — choisis ton niveau</p>
-    </div>
-  </header>
-  <div class="toolbar-panel">
-    <div class="container">
-      <div class="controls controls-compact">
+</div>
 
-        <label class="control-inline">Niveau
-          <select id="levelSelect" class="input">
-            <option value="facile">Facile — 4×4 (gauche / droit)</option>
-            <option value="moyen">Moyen — 5×5</option>
-            <option value="difficile" selected>Difficile — 7×7</option>
-          </select>
-        </label>
+<div id="playground" class="playground-grid" aria-label="Aire de jeu"></div>
 
-        <div class="btn-group">
-          <button id="startBtn" class="btn btn-primary">Démarrer</button>
-          <button id="newGrid" class="btn">Nouvelle grille</button>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="footer-stats">
+  <div>Erreurs : <strong id="errors">0</strong></div>
+  <div>Restants : <strong id="remaining">0</strong></div>
+  <div>Temps : <strong id="time">00:00</strong></div>
+</div>
 
-  <main class="container main">
-    <section>
-      <div id="playground" class="playground-grid" aria-label="Aire de jeu"></div>
-    </section>
+<div id="message" class="message" aria-live="polite"></div>
+<p class="cons">Raccourci : touche <kbd>R</kbd> pour recommencer.</p>
 
-    <div class="footer-stats">
-      <div>Erreurs : <strong id="errors">0</strong></div>
-      <div>Restants : <strong id="remaining">0</strong></div>
-      <div>Temps : <strong id="time">00:00</strong></div>
-    </div>
-
-    <div id="message" class="message" aria-live="polite"></div>
-  </main>
-
-  <footer class="footer">
-    <div class="container footer-inner">
-      <div class="small">Raccourci : touche <kbd>R</kbd> pour recommencer</div>
-      <div class="small">Retour au menu : <a href="index.html">Accueil</a></div>
-    </div>
-  </footer>
-
-  <script src="click-app.js"></script>
-</body>
-</html>
+<script src="click-app.js"></script>

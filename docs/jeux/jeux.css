@@ -23,7 +23,7 @@ main { max-width: 1100px; }
 .btn-group { display: flex; flex-wrap: wrap; gap: 10px; }
 
 /* Boutons génériques (clavier) */
-main button:not(.btn) {
+main :where(button:not(.btn):not(.cell)) {
   min-height: var(--tap);
   padding: 8px 16px;
   font: inherit;
@@ -34,7 +34,7 @@ main button:not(.btn) {
   border-radius: 10px;
   cursor: pointer;
 }
-main button:not(.btn):hover, main button:not(.btn):focus { filter: brightness(0.92); }
+main :where(button:not(.btn):not(.cell)):hover, main :where(button:not(.btn):not(.cell)):focus { filter: brightness(0.92); }
 main button.secondary, main button.ghost {
   color: var(--navy);
   background: var(--surface);
@@ -81,11 +81,11 @@ kbd { padding: 1px 6px; background: #eceff2; border: 1px solid var(--border); bo
 /* Mise en page à deux colonnes du simulateur clavier */
 .jeu-cols { display: flex; flex-direction: column; gap: 18px; }
 .jeu-cols > * { min-width: 0; max-width: 100%; }
-.left { flex: 1 1 0; }
-.right { width: 100%; }
+.jeu-cols > .left { flex: 1 1 0; }
+.jeu-cols > .right { width: 100%; }
 @media (min-width: 981px) {
   .jeu-cols { flex-direction: row; align-items: flex-start; }
-  .right { width: 320px; flex: none; }
+  .jeu-cols > .right { width: 320px; flex: none; }
 }
 
 /* Jeu des clics */
@@ -141,7 +141,7 @@ kbd { padding: 1px 6px; background: #eceff2; border: 1px solid var(--border); bo
   border-radius: 10px;
   cursor: grab;
 }
-.target {
+.targets-row .target {
   position: relative;
   display: flex;
   align-items: center;
@@ -155,9 +155,9 @@ kbd { padding: 1px 6px; background: #eceff2; border: 1px solid var(--border); bo
   border: 3px dashed #9aa3b0;
   border-radius: 10px;
 }
-.target.hover { border-color: var(--gold); background: var(--ex-bg); }
-.target.correct { border-style: solid; border-color: var(--green); background: var(--green-bg); }
-.target.wrong { border-color: #c0392b; background: #fdf0ef; }
+.targets-row .target.hover { border-color: var(--gold); background: var(--ex-bg); }
+.targets-row .target.correct { border-style: solid; border-color: var(--green); background: var(--green-bg); }
+.targets-row .target.wrong { border-color: #c0392b; background: #fdf0ef; }
 .placed-number {
   position: absolute;
   left: 8px;
@@ -186,6 +186,6 @@ kbd { padding: 1px 6px; background: #eceff2; border: 1px solid var(--border); bo
   .playground-grid { grid-auto-rows: minmax(44px, 1fr); gap: 6px; padding: 8px; }
   .cell { font-size: 11px; padding: 2px; border-width: 2px; }
   .number { width: 48px; height: 48px; font-size: 16px; }
-  .target { width: 72px; height: 52px; font-size: 13px; }
+  .targets-row .target { width: 72px; height: 52px; font-size: 13px; }
   .placed-number { width: 40px; height: 40px; font-size: 15px; left: 6px; top: 6px; }
 }

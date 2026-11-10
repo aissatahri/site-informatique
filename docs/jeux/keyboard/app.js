@@ -3,37 +3,6 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // --- Zones / questions ---
-  const zoneQuestion = document.getElementById('zone-question');
-  const zones = {
-    'zone-fn': { q: "Comment s'appelle la zone en haut (orange) ?", choices: ["Le clavier alphanumérique","Les touches de fonction","Le pavé numérique","Les touches de mouvement"], correct: "Les touches de fonction" },
-    'zone-alpha': { q: "Comment s'appelle la grande zone (rouge) ?", choices: ["Le clavier alphanumérique","Les touches de fonction","Le pavé numérique","Les touches de mouvement"], correct: "Le clavier alphanumérique" },
-    'zone-navi': { q: "Comment s'appelle la zone bleue ?", choices: ["Le clavier alphanumérique","Les touches de fonction","Le pavé numérique","Les touches de mouvement"], correct: "Les touches de mouvement" },
-    'zone-num': { q: "Comment s'appelle la zone violette/numérique ?", choices: ["Le clavier alphanumérique","Les touches de fonction","Le pavé numérique","Les touches de mouvement"], correct: "Le pavé numérique" }
-  };
-
-  // Attacher click sur zones
-  document.querySelectorAll('.overlay .zone').forEach(el => {
-    el.addEventListener('click', () => {
-      const id = el.getAttribute('data-zone-id');
-      const data = zones[id];
-      if (!data) return;
-      zoneQuestion.innerHTML = '';
-      const p = document.createElement('p'); p.textContent = data.q; zoneQuestion.appendChild(p);
-      data.choices.forEach(ch => {
-        const label = document.createElement('label'); label.style.display='block';
-        const r = document.createElement('input'); r.type='radio'; r.name='zq'; r.value=ch;
-        label.appendChild(r); label.appendChild(document.createTextNode(' ' + ch)); zoneQuestion.appendChild(label);
-      });
-      const btn = document.createElement('button'); btn.textContent = 'Vérifier';
-      btn.addEventListener('click', () => {
-        const sel = zoneQuestion.querySelector('input[name="zq"]:checked'); if(!sel){ alert('Choisis une réponse.'); return; }
-        if(sel.value === data.correct) alert('Bonne réponse !'); else alert('Réponse incorrecte. Réponse correcte : ' + data.correct);
-      });
-      zoneQuestion.appendChild(btn);
-      zoneQuestion.classList.remove('hidden');
-    });
-  });
 
   // util insertion
   function insertAtCursor(el, text){

@@ -65,7 +65,7 @@
       playground.appendChild(btn);
     });
     errors=0; done=0; elapsedTime=0; running=false; updateFooter();
-    showMessage('<strong>Prêt</strong> — configurez les infos et appuyez sur Démarrer.', 2200);
+    showMessage('<strong>Prêt</strong> — appuie sur Démarrer pour lancer le chronomètre.', 2200);
   }
 
   function startTimer(){
@@ -150,5 +150,5 @@
   if (levelSelect) levelSelect.addEventListener('change', ()=>{ localStorage.setItem('clickLevel', levelSelect.value); stopTimer(); buildGrid(); });
 
   // init
-  buildGrid();
+  buildGrid();
 })();

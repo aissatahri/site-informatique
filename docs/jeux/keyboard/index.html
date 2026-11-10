@@ -1,74 +1,58 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Simulateur : Utilisation du clavier — Exercices & QCM</title>
-
-  <!-- Charger d'abord le CSS global puis le CSS spécifique au simulateur. -->
-  <link rel="stylesheet" href="../style.css?v=3" />
-  <link rel="stylesheet" href="style.css?v=3" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulateur clavier - Jeux - Informatique - Tronc Commun</title>
+<meta name="description" content="Jeux d&#x27;informatique (souris et clavier), Tronc Commun. Lycée Qadi Ibn Arabi, 2026-2027.">
+<link rel="icon" href="../../favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../jeux.css">
+<link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <div class="topbar">
-    <div class="container topbar-inner">
-      <a class="logo" href="../index.html">🎓 Jeux pédagogiques</a>
-      <nav aria-label="Navigation principale">
-        <a href="../index.html">Accueil</a>
-        <a href="../click.html">Clics</a>
-        <a href="../dnd.html">Glisser-déposer</a>
-        <a href="index.html" class="active" aria-current="page">Clavier</a>
-      </nav>
-    </div>
-  </div>
-  <header class="page-title">
-    <div class="container">
-      <h1>Simulateur : utilisation du clavier</h1>
-      <p class="tag">Exercices pratiques et QCM pour apprendre le clavier (AZERTY / autres).</p>
-    </div>
-  </header>
+<body id="haut">
+<header class="site-header">
+<a class="brand" href="../../index.html">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="44" height="44" aria-hidden="true" focusable="false"><rect width="64" height="64" rx="14" fill="#1F3A5F"/><path d="M32 19c-5-3-12-4-20-3v28c8-1 15 0 20 3 5-3 12-4 20-3V16c-8-1-15 0-20 3z" fill="#fff"/><path d="M32 19v28" stroke="#C8962E" stroke-width="3" fill="none"/></svg>
+<span class="brand-text"><strong>Lycée Qadi Ibn Arabi</strong><span>Informatique - Tronc Commun</span></span>
+</a>
+<nav class="site-nav" aria-label="Navigation principale">
+<a href="../../index.html">Accueil</a>
+<a href="../../entrainement.html">Entraînement</a>
+<a href="../../jeux/index.html">Jeux</a>
+</nav>
+</header>
+<main>
+<nav class="breadcrumb" aria-label="Fil d'Ariane"><ol><li><a href="../../index.html">Accueil</a></li><li><a href="../index.html">Jeux</a></li><li aria-current="page">Clavier</li></ol></nav><div class="tabs"><a class="tab" href="../click.html">Clics</a><a class="tab" href="../dnd.html">Glisser-déposer</a><span class="tab current" aria-current="page">Clavier</span></div><h1>Simulateur clavier</h1>
+<p>Découvre les quatre zones du clavier, entraîne-toi avec le quiz, teste tes touches puis fais les exercices pratiques.</p>
 
-  <main class="container main">
-    <section class="left">
+<div class="jeu-cols">
+<section class="left">
 
-      <h2>Schéma du clavier — zones cliquables</h2>
+      <h2>Le clavier interactif</h2>
 
-      <!-- Keyboard wrapper: image + overlay zones -->
-      <div id="keyboard-illustration" class="panel keyboard-wrapper">
-        <img id="kb-img" src="images/keyboard.png" alt="Schéma du clavier (AZERTY) — zones colorées" />
-
-        <div class="overlay" id="overlay">
-          <div class="zone zone-fn" data-zone-id="zone-fn" title="Fonctions - cliquez"></div>
-          <div class="zone zone-alpha" data-zone-id="zone-alpha" title="Clavier alphanumérique - cliquez"></div>
-          <div class="zone zone-navi" data-zone-id="zone-navi" title="Touches de mouvement - cliquez"></div>
-          <div class="zone zone-num" data-zone-id="zone-num" title="Pavé numérique - cliquez"></div>
+      <div class="panel">
+        <div class="kb-modes" role="group" aria-label="Mode">
+          <button type="button" id="mode-discover" class="kb-mode on" aria-pressed="true">Découvrir</button>
+          <button type="button" id="mode-quiz" class="kb-mode" aria-pressed="false">Quiz des zones</button>
         </div>
-
-        <p class="hint">Clique sur une zone colorée de l'image pour voir la question la concernant.</p>
+        <p id="kb-prompt" class="kb-prompt" aria-live="polite">Clique sur une zone colorée du clavier pour la découvrir.</p>
+        <div class="kb-wrap"><div id="kb-stage" class="kb-stage" aria-label="Clavier AZERTY : quatre zones"></div></div>
+        <ul class="kb-legend" id="kb-legend"></ul>
       </div>
 
-      <!-- Editor controls (optionnel) -->
-      <div id="overlay-editor" class="panel">
-        <label for="zone-select">Zone à éditer :</label>
-        <select id="zone-select" aria-label="Choisir la zone à éditer">
-          <option value="zone-fn">zone-fn (Fonctions)</option>
-          <option value="zone-alpha">zone-alpha (Alphanumérique)</option>
-          <option value="zone-navi">zone-navi (Navigation)</option>
-          <option value="zone-num">zone-num (Pavé numérique)</option>
-        </select>
+      <div id="zone-info" class="panel kb-info" aria-live="polite"></div>
 
-        <div class="actions" style="margin-top:8px;">
-          <button id="toggle-edit" type="button">Entrer en mode Édition</button>
-          <button id="reset-zones" type="button" class="secondary">Restorer positions par défaut</button>
-          <button id="export-zones" type="button" class="ghost">Exporter positions (JSON)</button>
+      <h2>Testeur de touches</h2>
+      <div class="panel">
+        <div id="kb-tester" class="kb-tester" tabindex="0" role="textbox" aria-readonly="true" aria-label="Zone de test : appuie sur une touche de ton clavier">
+          <strong>Clique ici</strong>, puis appuie sur n'importe quelle touche de ton clavier (ordinateur).
         </div>
-
-        <div class="editor-hint small" style="margin-top:8px;">
-          Mode édition : clique-glisse sur l'image pour définir la zone sélectionnée. Positions sauvegardées en % dans localStorage.
-        </div>
+        <p id="kb-result" class="kb-result" aria-live="polite">Aucune touche pour le moment.</p>
+        <p class="kb-progress"><span id="kb-count">0</span> / <span id="kb-total">0</span> touches essayées
+          <button type="button" id="kb-clear" class="secondary">Effacer</button></p>
       </div>
-
-      <div id="zone-question" class="panel hidden" aria-live="polite"></div>
 
       <h2>Exercices pratiques</h2>
 
@@ -208,14 +192,22 @@
         <p>Utilisez ces exercices pour apprendre les principales touches : flèches, Backspace, Delete, Tab, Shift, AltGr.</p>
       </div>
     </aside>
-  </main>
+</div>
 
-  <footer class="panel">
-    <p style="margin:0;">Développé pour exercice — version simplifiée.</p>
-  </footer>
+<script src="keyboard.js"></script>
+<script src="app.js"></script>
 
-  <!-- Scripts: overlay.js positionne les zones ; app.js contient la logique des exercices -->
-  <script src="overlay.js?v=3"></script>
-  <script src="app.js?v=3"></script>
+</main>
+<footer class="site-footer">
+<p>Enseignant : Aissa Tahri</p>
+<p>Année scolaire 2026-2027</p>
+</footer>
+<a class="to-top" href="#haut" aria-label="Retour en haut">↑ <span>Retour en haut</span></a>
+<script>
+// Impression : ouvre toutes les corrections
+window.addEventListener("beforeprint", function () {
+  document.querySelectorAll("details").forEach(function (d) { d.open = true; });
+});
+</script>
 </body>
 </html>
