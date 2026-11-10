@@ -138,14 +138,38 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- QCM logique ---
   const qcmCheck = document.getElementById('qcm-check');
   const qcmReset = document.getElementById('qcm-reset');
-  const qcmResult = document.getElementById('qcm-result');
-  const qcmAnswers = { q1: "Le clavier alphanumérique", q2: "Les touches de mouvement", q3: "Parce que les premières touches sont A Z E R T Y", q4: "Home" };
+  const qcmForm = document.getElementById('qcm-form');
+  const qcmResult = document.getElementById('qcm-result-side'); // à côté du bouton
+  const qcmAnswers = {
+    q1: { value: "Le clavier alphanumérique", text: "Le clavier alphanumérique" },
+    q2: { value: "Les touches de mouvement", text: "Les touches de mouvement du curseur" },
+    q3: { value: "ordre", text: "Parce que les premières touches sont A Z E R T Y" },
+    q4: { value: "Home", text: "Home" }
+  };
+
+  function clearQcmMarks() {
+    qcmForm.querySelectorAll('.q').forEach(q => { q.classList.remove('ok', 'ko'); const n = q.querySelector('.qcm-fb'); if (n) n.remove(); });
+  }
 
   qcmCheck.addEventListener('click', () => {
-    const form = document.getElementById('qcm-form'); const data = new FormData(form);
-    let correct=0,total=0; Object.keys(qcmAnswers).forEach(k=>{ total++; const given=data.get(k); if(given===qcmAnswers[k]) correct++; });
-    qcmResult.classList.remove('hidden'); qcmResult.innerHTML = `<strong>Résultat :</strong> ${correct} / ${total} correct${correct !== 1 ? 's' : ''}.`;
+    clearQcmMarks();
+    const data = new FormData(qcmForm);
+    const keys = Object.keys(qcmAnswers);
+    let correct = 0, unanswered = 0;
+    keys.forEach(k => {
+      const box = qcmForm.querySelector('input[name="' + k + '"]').closest('.q');
+      const given = data.get(k);
+      const fb = document.createElement('p');
+      fb.className = 'qcm-fb';
+      if (given === null) { unanswered++; box.classList.add('ko'); fb.textContent = 'Pas de réponse. Bonne réponse : ' + qcmAnswers[k].text; }
+      else if (given === qcmAnswers[k].value) { correct++; box.classList.add('ok'); fb.textContent = '✅ Bonne réponse'; }
+      else { box.classList.add('ko'); fb.textContent = '❌ Bonne réponse : ' + qcmAnswers[k].text; }
+      box.appendChild(fb);
+    });
+    qcmResult.classList.remove('hidden');
+    qcmResult.innerHTML = '<strong>Résultat :</strong> ' + correct + ' / ' + keys.length + ' correct' + (correct !== 1 ? 's' : '') + '.' +
+      (unanswered ? ' (' + unanswered + ' sans réponse)' : '');
   });
-  qcmReset.addEventListener('click', ()=>{ document.getElementById('qcm-form').reset(); qcmResult.classList.add('hidden'); });
+  qcmReset.addEventListener('click', () => { qcmForm.reset(); clearQcmMarks(); qcmResult.classList.add('hidden'); });
 
 });
