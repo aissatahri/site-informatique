@@ -1,0 +1,191 @@
+/* Jeux souris / clavier : styles propres aux activités.
+   Chargé après ../style.css : les couleurs, boutons, cartes et en-têtes viennent du site. */
+
+main { max-width: 1100px; }
+
+/* Navigation entre les activités */
+.jeux-nav { margin-bottom: 4px; }
+.tabs { flex-wrap: wrap; }
+
+/* Commandes (niveau, langue, boutons) */
+.controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; margin: 14px 0; }
+.control-inline { display: flex; flex-direction: column; gap: 4px; font-weight: 600; font-size: 0.95rem; }
+.input, .control-inline select {
+  min-height: var(--tap);
+  min-width: 150px;
+  padding: 6px 10px;
+  font: inherit;
+  color: var(--text);
+  background: #fff;
+  border: 1px solid #aab3c0;
+  border-radius: 8px;
+}
+.btn-group { display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* Boutons génériques (clavier) */
+main button:not(.btn) {
+  min-height: var(--tap);
+  padding: 8px 16px;
+  font: inherit;
+  font-weight: 700;
+  color: #fff;
+  background: var(--navy);
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+}
+main button:not(.btn):hover, main button:not(.btn):focus { filter: brightness(0.92); }
+main button.secondary, main button.ghost {
+  color: var(--navy);
+  background: var(--surface);
+  border: 1px solid var(--navy);
+}
+.actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 8px; }
+
+/* Champs de saisie du simulateur clavier */
+.exercise input, .exercise textarea {
+  width: 100%;
+  padding: 10px 12px;
+  font: inherit;
+  color: var(--text);
+  background: #fff;
+  border: 1px solid #aab3c0;
+  border-radius: 8px;
+}
+.exercise textarea { min-height: 90px; resize: vertical; line-height: 1.4; }
+
+/* Panneaux et exercices */
+.panel {
+  margin: 14px 0;
+  padding: 4px 16px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.panel h3 { margin-top: 0.8em; }
+.status {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 6px 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.hint { color: var(--muted); font-size: 0.95rem; }
+.small { font-size: 0.9rem; color: var(--muted); }
+.hidden { display: none; }
+kbd { padding: 1px 6px; background: #eceff2; border: 1px solid var(--border); border-radius: 4px; font-size: 0.9em; }
+.q-title { font-weight: 600; }
+#qcm-form .q { margin: 12px 0; }
+
+/* Mise en page à deux colonnes du simulateur clavier */
+.jeu-cols { display: flex; flex-direction: column; gap: 18px; }
+.jeu-cols > * { min-width: 0; max-width: 100%; }
+.left { flex: 1 1 0; }
+.right { width: 100%; }
+@media (min-width: 981px) {
+  .jeu-cols { flex-direction: row; align-items: flex-start; }
+  .right { width: 320px; flex: none; }
+}
+
+/* Jeu des clics */
+.playground-grid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(var(--cols, 7), minmax(0, 1fr));
+  grid-auto-rows: minmax(56px, 1fr);
+  padding: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  font-weight: 800;
+  font-size: 16px;
+  color: #fff;
+  background: var(--navy);
+  border: 3px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+.cell.empty { background: var(--bg); color: transparent; cursor: default; }
+
+/* Jeu glisser-déposer */
+.numbers-row, .targets-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin: 12px 0;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.numbers-row { background: var(--ex-bg); border-color: var(--ex-border); }
+.targets-row { background: var(--def-bg); border-color: var(--def-border); }
+.number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  font-size: 24px;
+  font-weight: 800;
+  color: #fff;
+  background: var(--navy);
+  border-radius: 10px;
+  cursor: grab;
+}
+.target {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 72px;
+  padding: 6px;
+  text-align: center;
+  color: var(--text);
+  background: #fff;
+  border: 3px dashed #9aa3b0;
+  border-radius: 10px;
+}
+.target.hover { border-color: var(--gold); background: var(--ex-bg); }
+.target.correct { border-style: solid; border-color: var(--green); background: var(--green-bg); }
+.target.wrong { border-color: #c0392b; background: #fdf0ef; }
+.placed-number {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  background: var(--green);
+  border-radius: 8px;
+}
+
+/* Statistiques et messages */
+.footer-stats { display: flex; flex-wrap: wrap; gap: 18px; margin: 12px 0; font-weight: 700; }
+.message { display: none; margin: 12px 0; padding: 10px 14px; color: var(--green); background: var(--green-bg); border-left: 5px solid var(--green); border-radius: 0 8px 8px 0; }
+.message.show { display: block; }
+
+/* Écrans étroits (téléphone) */
+@media (max-width: 640px) {
+  .control-inline, .control-inline .input, .btn-group { width: 100%; }
+  .btn-group .btn { flex: 1; }
+  .playground-grid { grid-auto-rows: minmax(44px, 1fr); gap: 6px; padding: 8px; }
+  .cell { font-size: 11px; padding: 2px; border-width: 2px; }
+  .number { width: 48px; height: 48px; font-size: 16px; }
+  .target { width: 72px; height: 52px; font-size: 13px; }
+  .placed-number { width: 40px; height: 40px; font-size: 15px; left: 6px; top: 6px; }
+}

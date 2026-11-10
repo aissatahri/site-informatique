@@ -162,6 +162,7 @@ PAGE = """<!DOCTYPE html>
 <nav class="site-nav" aria-label="Navigation principale">
 <a href="{root}index.html">Accueil</a>
 <a href="{root}entrainement.html">Entraînement</a>
+<a href="{root}jeux/index.html">Jeux</a>
 </nav>
 </header>
 <main>
@@ -399,6 +400,13 @@ def index_page(modules, n_series):
         f'<p class="card-meta">{n_series} séries, notées sur 20</p>'
         '<span class="badge badge-ok">Disponible</span></article>'
     )
+    parts.append(
+        '<article class="card">'
+        '<span class="card-num">Jeux</span>'
+        '<h3><a href="jeux/index.html">Souris et clavier</a></h3>'
+        '<p class="card-meta">3 activités : clics, glisser-déposer, clavier</p>'
+        '<span class="badge badge-ok">Disponible</span></article>'
+    )
     parts.append("</div>")
 
     for i, mod in enumerate(modules):
@@ -497,6 +505,9 @@ def main():
         shutil.rmtree(DOCS / sub, ignore_errors=True)
     shutil.rmtree(DOCS / "assets", ignore_errors=True)
     shutil.copytree(ROOT / "assets", DOCS / "assets")
+    # Jeux souris / clavier : pages autonomes recopiées telles quelles
+    shutil.rmtree(DOCS / "jeux", ignore_errors=True)
+    shutil.copytree(ROOT / "jeux", DOCS / "jeux")
 
     write(DOCS / "favicon.svg", FAVICON_SVG)
     (DOCS / "favicon.ico").write_bytes(make_favicon_ico())
