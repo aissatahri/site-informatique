@@ -108,14 +108,17 @@ a { color: #1d5fa8; }
 img { max-width: 100%; height: auto; }
 
 /* Schémas du cours : image centrée, bordure fine, légende en petit centré */
-.content p:has(> img[src$=".svg"]) { margin-bottom: 0.3em; text-align: center; }
-.content p > img[src$=".svg"] {
+.content p:has(> img[src$=".svg"]),
+.content p:has(> img[src$=".png"]) { margin-bottom: 0.3em; text-align: center; }
+.content p > img[src$=".svg"],
+.content p > img[src$=".png"] {
   display: block;
   margin: 0 auto;
   border: 1px solid var(--border, #ccc);
   border-radius: 4px;
 }
-.content p:has(> img[src$=".svg"]) + p {
+.content p:has(> img[src$=".svg"]) + p,
+.content p:has(> img[src$=".png"]) + p {
   text-align: center;
   font-size: 0.85rem;
   margin-top: 0.3em;

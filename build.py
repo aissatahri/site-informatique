@@ -45,6 +45,11 @@ MODULES = [
                 "exercices": "m2-ch1-exercices",
                 "tp": "m2-ch1-tp",
             },
+            {
+                "cours": "m2-ch2-traitement-texte",
+                "exercices": "m2-ch2-exercices",
+                "tp": "m2-ch2-tp",
+            },
         ],
     },
     {"title": "Algorithme et programmation", "chapters": []},
