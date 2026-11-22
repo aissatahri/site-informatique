@@ -442,9 +442,17 @@ def chapter_page(kind, mod_idx, num, chapters):
     chapter = chapters[num - 1]
     stem, title, body, toc = chapter[kind]
     label = next(l for k, _f, l, _c in KINDS if k == kind)
+    pdf_link = ""
+    if kind in ("cours", "tp") and (DOCS / "pdf" / f"{stem}.pdf").exists():
+        pdf_link = (
+            '<p class="buttons"><a class="btn btn-ghost" href="../pdf/'
+            f'{stem}.pdf" download>Télécharger le PDF '
+            "<small>filigrané, protégé par mot de passe</small></a></p>"
+        )
     inner = (
         breadcrumb(mod_idx, num)
         + switcher(kind, chapter)
+        + pdf_link
         + '<div class="layout">'
         + toc_html(toc)
         + f'<article class="content">{body}</article></div>'
