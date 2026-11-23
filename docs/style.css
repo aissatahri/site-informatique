@@ -373,6 +373,11 @@ button.btn-ghost { border: 1px solid var(--navy); }
 .vf { display: flex; gap: 8px; }
 .vf button { flex: 1; min-height: var(--tap); font: inherit; font-weight: 700; color: var(--navy); background: #fff; border: 2px solid var(--navy); border-radius: 8px; cursor: pointer; }
 .vf button.on { background: var(--navy); color: #fff; }
+.opts { display: flex; flex-direction: column; gap: 6px; }
+.opts button { min-height: var(--tap); padding: 8px 12px; text-align: left; font: inherit; color: var(--text); background: #fff; border: 2px solid var(--border); border-radius: 8px; cursor: pointer; }
+.opts button.on { background: var(--navy); color: #fff; border-color: var(--navy); }
+.opts.mono button { font-family: Consolas, "Courier New", monospace; font-size: 0.92rem; word-break: break-all; }
+pre.tree { margin: 0 0 12px; padding: 12px; overflow: auto; font-family: Consolas, "Courier New", monospace; font-size: 0.95rem; line-height: 1.35; background: #fff; border: 1px solid var(--border); border-radius: 8px; }
 .q.ok { background: var(--green-bg); border-color: #a9d3b9; border-left: 5px solid var(--green); }
 .q.ko { background: #fdf0ef; border-color: #e8b4b0; border-left: 5px solid #c0392b; }
 .q .note { margin-top: 6px; font-size: 0.95rem; }

@@ -36,6 +36,27 @@
       bank: shuffle(S.ex3.items.map(function (x) { return x.a; }).concat(S.ex3.distract))
     };
 
+    var se = S.course === "se"; // séries « Système d'exploitation » : Ex. 4 = QCM, Ex. 5 = arborescence
+    exam.course = se ? "se" : "info";
+    key.se = se;
+
+    if (se) {
+      exam.ex4 = S.ex4.map(function (x, i) {
+        key.ex4["q" + i] = { a: "abc"[x.a], exp: "abc"[x.a] + ") " + x.opts[x.a] };
+        return { id: "q" + i, q: x.q, opts: x.opts };
+      });
+      exam.ex5 = {
+        tree: S.ex5.tree,
+        items: S.ex5.items.map(function (x, i) {
+          key.ex5["q" + i] = x.kind === "num"
+            ? { kind: "num", a: String(x.a), exp: String(x.a) }
+            : { kind: "choice", a: "abc"[x.a], exp: "abc"[x.a] + ") " + x.opts[x.a] };
+          return { id: "q" + i, q: x.q, kind: x.kind, opts: x.opts || null, mono: !!x.mono };
+        })
+      };
+      return { exam: exam, key: key };
+    }
+
     exam.ex4 = S.ex4.map(function (x, i) {
       key.ex4["q" + i] = { a: String(x.a), kind: x.kind, detail: x.detail };
       return { id: "q" + i, q: x.q, kind: x.kind };
@@ -91,14 +112,22 @@
       det.ex3[k] = { ok: ok, exp: key.ex3[k] };
     });
     Object.keys(key.ex4).forEach(function (k) {
-      var ok = checkEx4(key.ex4[k], a("ex4", k));
+      var ok = key.se ? a("ex4", k) === key.ex4[k].a : checkEx4(key.ex4[k], a("ex4", k));
       if (ok) raw.ex4 += 0.5;
-      det.ex4[k] = { ok: ok, exp: key.ex4[k].detail };
+      det.ex4[k] = { ok: ok, exp: key.se ? key.ex4[k].exp : key.ex4[k].detail };
     });
     Object.keys(key.ex5).forEach(function (k) {
-      var ok = a("ex5", k) === key.ex5[k];
+      var kk = key.ex5[k], ok, exp;
+      if (key.se) {
+        ok = kk.kind === "num" ? (leadingNumber(a("ex5", k)) !== null && parseInt(leadingNumber(a("ex5", k)), 10) === parseInt(kk.a, 10))
+                               : a("ex5", k) === kk.a;
+        exp = kk.exp;
+      } else {
+        ok = a("ex5", k) === kk;
+        exp = kk;
+      }
       if (ok) raw.ex5 += 0.5;
-      det.ex5[k] = { ok: ok, exp: key.ex5[k] };
+      det.ex5[k] = { ok: ok, exp: exp };
     });
 
     var r = { total: 0 };
@@ -159,7 +188,7 @@
     fixScripts($("exam-root"));
     $("result-title").textContent = data[current.serie].title;
     $("result-note").innerHTML = "<b>" + Exam.fmt(g.r.total) + "</b> / 20";
-    $("result-table").innerHTML = Exam.scoreTable(g.r);
+    $("result-table").innerHTML = Exam.scoreTable(g.r, current.exam.course);
     $("finish").hidden = true;
     show("step-result");
   }

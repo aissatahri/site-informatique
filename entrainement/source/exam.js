@@ -37,25 +37,48 @@ var Exam = (function () {
     var o3 = exam.ex3.bank.map(function (t) { return [t, t]; });
     exam.ex3.items.forEach(function (x, i) { h += q("ex3", x.id, "<b>" + (i + 1) + ".</b> " + esc(x.text), sel("ex3", x.id, o3, "— terme —")); });
     h += "</section>";
-    // Exercice 4
-    h += '<section class="ex"><h2>Exercice 4 — Conversions et calculs <span class="pts">4 points</span></h2>' +
-      '<p class="cons">Écris uniquement le résultat (un nombre). En binaire, écris seulement des 0 et des 1. Pas besoin d\'écrire l\'unité.</p>';
-    exam.ex4.forEach(function (x, i) {
-      var ph = x.kind === "dec" ? "résultat (nombre)" : x.kind === "bin8" ? "8 chiffres 0/1" : "binaire";
-      h += q("ex4", x.id, "<b>" + "abcdefgh"[i] + ")</b> " + esc(x.q),
-        '<input type="text" data-ex="ex4" data-k="' + x.id + '" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="' + ph + '" value="' + esc(a("ex4", x.id)) + '"' + (ro ? " disabled" : "") + ">");
-    });
-    h += "</section>";
-    // Exercice 5
-    h += '<section class="ex"><h2>Exercice 5 — Schémas fonctionnels <span class="pts">5 points</span></h2><p class="cons">Complète les cases numérotées (ou lettrées) de chaque schéma en choisissant l\'élément correct.</p>';
-    ["s1", "s2"].forEach(function (sk) {
-      var S = exam.ex5[sk];
-      var ob = S.bank.map(function (t) { return [t, t]; });
-      h += '<h3>' + esc(S.title) + '</h3><img class="schema" src="' + S.img + '" alt="' + esc(S.title) + '"><div class="grid">';
-      S.blanks.forEach(function (tag) { h += q("ex5", sk + "_" + tag, "Case <b>" + tag + "</b>", sel("ex5", sk + "_" + tag, ob, "— élément —")); });
-      h += "</div>";
-    });
-    h += "</section>";
+    if (exam.course === "se") {
+      // Exercice 4 : QCM
+      h += '<section class="ex"><h2>Exercice 4 — QCM <span class="pts">4 points</span></h2><p class="cons">Une seule réponse est correcte : clique sur la bonne réponse.</p>';
+      var opts = function (ex, k, list, mono) {
+        var cur = a(ex, k), s = '<div class="opts' + (mono ? " mono" : "") + '" data-ex="' + ex + '" data-k="' + k + '">';
+        list.forEach(function (o, j) { var L = "abc"[j]; s += '<button type="button" data-v="' + L + '"' + (cur === L ? ' class="on"' : "") + (ro ? " disabled" : "") + "><b>" + L + ")</b> " + esc(o) + "</button>"; });
+        return s + "</div>";
+      };
+      exam.ex4.forEach(function (x, i) { h += q("ex4", x.id, "<b>" + (i + 1) + ".</b> " + esc(x.q), opts("ex4", x.id, x.opts, false)); });
+      h += "</section>";
+      // Exercice 5 : arborescence
+      h += '<section class="ex"><h2>Exercice 5 — Arborescence et chemins d\'accès <span class="pts">5 points</span></h2>' +
+        '<p class="cons">Observe l\'arborescence, puis réponds aux questions : clique sur la bonne réponse ou écris seulement un nombre.</p>' +
+        '<pre class="tree">' + exam.ex5.tree.map(esc).join("\n") + "</pre>";
+      exam.ex5.items.forEach(function (x, i) {
+        var ctl = x.kind === "num"
+          ? '<input type="text" inputmode="numeric" data-ex="ex5" data-k="' + x.id + '" autocomplete="off" placeholder="un nombre" value="' + esc(a("ex5", x.id)) + '"' + (ro ? " disabled" : "") + ">"
+          : opts("ex5", x.id, x.opts, x.mono);
+        h += q("ex5", x.id, "<b>" + (i + 1) + ".</b> " + esc(x.q), ctl);
+      });
+      h += "</section>";
+    } else {
+      // Exercice 4
+      h += '<section class="ex"><h2>Exercice 4 — Conversions et calculs <span class="pts">4 points</span></h2>' +
+        '<p class="cons">Écris uniquement le résultat (un nombre). En binaire, écris seulement des 0 et des 1. Pas besoin d\'écrire l\'unité.</p>';
+      exam.ex4.forEach(function (x, i) {
+        var ph = x.kind === "dec" ? "résultat (nombre)" : x.kind === "bin8" ? "8 chiffres 0/1" : "binaire";
+        h += q("ex4", x.id, "<b>" + "abcdefgh"[i] + ")</b> " + esc(x.q),
+          '<input type="text" data-ex="ex4" data-k="' + x.id + '" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="' + ph + '" value="' + esc(a("ex4", x.id)) + '"' + (ro ? " disabled" : "") + ">");
+      });
+      h += "</section>";
+      // Exercice 5
+      h += '<section class="ex"><h2>Exercice 5 — Schémas fonctionnels <span class="pts">5 points</span></h2><p class="cons">Complète les cases numérotées (ou lettrées) de chaque schéma en choisissant l\'élément correct.</p>';
+      ["s1", "s2"].forEach(function (sk) {
+        var S = exam.ex5[sk];
+        var ob = S.bank.map(function (t) { return [t, t]; });
+        h += '<h3>' + esc(S.title) + '</h3><img class="schema" src="' + S.img + '" alt="' + esc(S.title) + '"><div class="grid">';
+        S.blanks.forEach(function (tag) { h += q("ex5", sk + "_" + tag, "Case <b>" + tag + "</b>", sel("ex5", sk + "_" + tag, ob, "— élément —")); });
+        h += "</div>";
+      });
+      h += "</section>";
+    }
     root.innerHTML = h;
 
     if (ro) return;
@@ -67,7 +90,7 @@ var Exam = (function () {
     root.onchange = function (e) { var t = e.target; if (t.tagName === "SELECT") set(t.dataset.ex, t.dataset.k, t.value); };
     root.oninput = function (e) { var t = e.target; if (t.tagName === "INPUT") set(t.dataset.ex, t.dataset.k, t.value); };
     root.onclick = function (e) {
-      var b = e.target.closest ? e.target.closest(".vf button") : null;
+      var b = e.target.closest ? e.target.closest(".vf button, .opts button") : null;
       if (!b) return;
       var box = b.parentNode, v = b.dataset.v;
       var already = b.classList.contains("on");
@@ -97,8 +120,10 @@ var Exam = (function () {
   }
 
   function fmt(x) { return String(x).replace(".", ","); }
-  function scoreTable(r) {
-    var names = { ex1: ["Ex. 1 — Définitions", 4], ex2: ["Ex. 2 — Vrai/Faux", 4], ex3: ["Ex. 3 — Termes", 3], ex4: ["Ex. 4 — Conversions", 4], ex5: ["Ex. 5 — Schémas", 5] };
+  function scoreTable(r, course) {
+    var names = course === "se"
+      ? { ex1: ["Ex. 1 — Définitions", 4], ex2: ["Ex. 2 — Vrai/Faux", 4], ex3: ["Ex. 3 — Termes", 3], ex4: ["Ex. 4 — QCM", 4], ex5: ["Ex. 5 — Arborescence", 5] }
+      : { ex1: ["Ex. 1 — Définitions", 4], ex2: ["Ex. 2 — Vrai/Faux", 4], ex3: ["Ex. 3 — Termes", 3], ex4: ["Ex. 4 — Conversions", 4], ex5: ["Ex. 5 — Schémas", 5] };
     var h = '<table class="score"><tbody>';
     Object.keys(names).forEach(function (k) { h += "<tr><td>" + names[k][0] + "</td><td>" + fmt(r[k]) + " / " + names[k][1] + "</td></tr>"; });
     return h + '<tr class="tot"><td>TOTAL</td><td>' + fmt(r.total) + " / 20</td></tr></tbody></table>";

@@ -183,7 +183,7 @@
     ]
    }
   },
-  "title": "Entraînement 1"
+  "title": "Généralités sur les systèmes informatiques : série 1"
  },
  "E2": {
   "ex1": [
@@ -373,6 +373,572 @@
     ]
    }
   },
-  "title": "Entraînement 2"
+  "title": "Généralités sur les systèmes informatiques : série 2"
+ },
+ "SE-E1": {
+  "ex1": [
+   {
+    "term": "UEFI",
+    "text": "Micrologiciel (anciennement BIOS) qui s'exécute à la mise sous tension de l'ordinateur et lance le démarrage."
+   },
+   {
+    "term": "Gestion de la mémoire",
+    "text": "Fonction du SE qui attribue à chaque programme une zone de RAM et la libère quand le programme se ferme."
+   },
+   {
+    "term": "Interface en ligne de commande (CLI)",
+    "text": "Interface où l'on tape des commandes au clavier (Invite de commandes, PowerShell, Terminal)."
+   },
+   {
+    "term": "Zone de notification",
+    "text": "Zone située à droite de la barre des tâches : heure, date, volume, réseau Wi-Fi, batterie, notifications."
+   }
+  ],
+  "ex2": [
+   {
+    "text": "Un système d'exploitation sert d'intermédiaire entre l'utilisateur et le matériel.",
+    "a": true,
+    "corr": ""
+   },
+   {
+    "text": "macOS est un système d'exploitation libre et gratuit.",
+    "a": false,
+    "corr": "macOS est le système d'Apple : il est propriétaire."
+   },
+   {
+    "text": "iOS est le système d'exploitation de l'iPhone et de l'iPad.",
+    "a": true,
+    "corr": ""
+   },
+   {
+    "text": "Le menu Démarrer s'ouvre avec la touche Alt.",
+    "a": false,
+    "corr": "Il s'ouvre avec la touche Windows."
+   },
+   {
+    "text": "Un système multi-utilisateur permet à plusieurs comptes de travailler.",
+    "a": true,
+    "corr": ""
+   },
+   {
+    "text": "La gestion des fichiers sert à communiquer avec la souris et le clavier.",
+    "a": false,
+    "corr": "C'est la gestion des périphériques ; la gestion des fichiers organise l'enregistrement des données."
+   },
+   {
+    "text": "Pour éteindre l'ordinateur, on utilise Démarrer › Marche/Arrêt › Arrêter.",
+    "a": true,
+    "corr": ""
+   },
+   {
+    "text": "La Corbeille est située dans la zone de notification.",
+    "a": false,
+    "corr": "La Corbeille est une icône du bureau."
+   }
+  ],
+  "ex3": {
+   "items": [
+    {
+     "text": "Petit programme qui permet de communiquer avec un périphérique.",
+     "a": "Pilote"
+    },
+    {
+     "text": "Fonction du SE qui répartit le temps du processeur entre les programmes en cours d'exécution.",
+     "a": "Gestion du processeur"
+    },
+    {
+     "text": "Image ou couleur affichée en arrière-plan du bureau.",
+     "a": "Fond d'écran"
+    },
+    {
+     "text": "Section du menu Démarrer qui affiche les fichiers et applications récemment utilisés.",
+     "a": "Recommandé"
+    },
+    {
+     "text": "Bande située en bas de l'écran, qui contient le bouton Démarrer et les icônes des applications.",
+     "a": "Barre des tâches"
+    },
+    {
+     "text": "Système d'exploitation libre, par exemple Ubuntu ou Debian.",
+     "a": "Linux"
+    }
+   ],
+   "distract": [
+    "Réseau et Internet",
+    "Réduire",
+    "Interface en ligne de commande (CLI)"
+   ]
+  },
+  "ex4": [
+   {
+    "q": "Quel logiciel est chargé en premier au démarrage ?",
+    "opts": [
+     "Chrome",
+     "Le système d'exploitation",
+     "Word"
+    ],
+    "a": 1
+   },
+   {
+    "q": "Comment s'appelle le micrologiciel qui démarre l'ordinateur ?",
+    "opts": [
+     "POST",
+     "UEFI (anciennement BIOS)",
+     "Paint"
+    ],
+    "a": 1
+   },
+   {
+    "q": "Quelle interface utilise la souris, les icônes et les fenêtres ?",
+    "opts": [
+     "Aucune des deux",
+     "L'interface en ligne de commande (CLI)",
+     "L'interface graphique (GUI)"
+    ],
+    "a": 2
+   },
+   {
+    "q": "Windows 11 est un système :",
+    "opts": [
+     "Monotâche",
+     "Multitâche",
+     "D'application"
+    ],
+    "a": 1
+   },
+   {
+    "q": "Un clic droit permet d'afficher :",
+    "opts": [
+     "Une info-bulle",
+     "Les Paramètres",
+     "Le menu contextuel"
+    ],
+    "a": 2
+   },
+   {
+    "q": "Que permet le raccourci Windows + L ?",
+    "opts": [
+     "Verrouiller la session",
+     "Faire une capture d'écran",
+     "Ouvrir l'Explorateur"
+    ],
+    "a": 0
+   },
+   {
+    "q": "Quelle est la licence de Linux ?",
+    "opts": [
+     "Libre et gratuit",
+     "Aucune licence",
+     "Propriétaire (payant)"
+    ],
+    "a": 0
+   },
+   {
+    "q": "Où se trouve la Corbeille ?",
+    "opts": [
+     "Dans le menu Démarrer",
+     "Dans la zone de notification",
+     "Sur le bureau"
+    ],
+    "a": 2
+   }
+  ],
+  "ex5": {
+   "tree": [
+    "D:",
+    "├── Lycee",
+    "│   ├── Maths",
+    "│   │   └── equations.docx",
+    "│   └── Informatique",
+    "│       ├── Cours",
+    "│       │   └── windows11.pdf",
+    "│       └── TP",
+    "│           └── tp1.docx",
+    "└── Loisirs",
+    "    └── Photos",
+    "        └── plage.jpg"
+   ],
+   "items": [
+    {
+     "q": "Quelle est la racine de cette arborescence ?",
+     "kind": "choice",
+     "opts": [
+      "D:",
+      "Maths",
+      "Loisirs"
+     ],
+     "a": 0,
+     "mono": false
+    },
+    {
+     "q": "Combien de dossiers y a-t-il (sans compter la racine) ?",
+     "kind": "num",
+     "a": "7"
+    },
+    {
+     "q": "Combien de fichiers y a-t-il ?",
+     "kind": "num",
+     "a": "4"
+    },
+    {
+     "q": "Quel est le chemin d'accès complet du fichier « windows11.pdf » ?",
+     "kind": "choice",
+     "opts": [
+      "D:\\Lycee\\Informatique\\Cours\\equations.docx",
+      "D:\\Lycee\\Informatique\\Cours\\windows11.pdf",
+      "D:/Lycee/Informatique/Cours/windows11.pdf"
+     ],
+     "a": 1,
+     "mono": true
+    },
+    {
+     "q": "Quel est le chemin d'accès complet du fichier « equations.docx » ?",
+     "kind": "choice",
+     "opts": [
+      "D:\\Maths\\Lycee\\equations.docx",
+      "D:/Lycee/Maths/equations.docx",
+      "D:\\Lycee\\Maths\\equations.docx"
+     ],
+     "a": 2,
+     "mono": true
+    },
+    {
+     "q": "Dans quel dossier se trouve directement le fichier « tp1.docx » ?",
+     "kind": "choice",
+     "opts": [
+      "TP",
+      "Informatique",
+      "Photos"
+     ],
+     "a": 0,
+     "mono": false
+    },
+    {
+     "q": "Quels sont les sous-dossiers directs du dossier « Lycee » ?",
+     "kind": "choice",
+     "opts": [
+      "Maths et Loisirs",
+      "Maths et Photos",
+      "Maths et Informatique"
+     ],
+     "a": 2,
+     "mono": false
+    },
+    {
+     "q": "Combien d'éléments (dossiers et fichiers) contient directement le dossier « Lycee » ?",
+     "kind": "num",
+     "a": "2"
+    },
+    {
+     "q": "On déplace « plage.jpg » dans le dossier « Loisirs ». Quel est son nouveau chemin d'accès ?",
+     "kind": "choice",
+     "opts": [
+      "Loisirs\\D:\\plage.jpg",
+      "D:\\Loisirs\\plage.jpg",
+      "D:/Loisirs/plage.jpg"
+     ],
+     "a": 1,
+     "mono": true
+    },
+    {
+     "q": "Quel chemin d'accès désigne correctement le dossier « Cours » ?",
+     "kind": "choice",
+     "opts": [
+      "Lycee\\Informatique\\Cours",
+      "D:\\Lycee\\Informatique\\Cours",
+      "D:/Lycee/Informatique/Cours"
+     ],
+     "a": 1,
+     "mono": true
+    }
+   ]
+  },
+  "title": "Système d'exploitation (Windows 11) : série 1, notions de base et environnement",
+  "topic": "Notions de base et environnement Windows 11",
+  "course": "se"
+ },
+ "SE-E2": {
+  "ex1": [
+   {
+    "term": "Corbeille",
+    "text": "Dossier spécial où sont placés les fichiers supprimés d'un disque interne ; on peut les restaurer tant qu'elle n'est pas vidée."
+   },
+   {
+    "term": "Fichier ZIP",
+    "text": "Dossier compressé, plus léger et plus facile à envoyer, obtenu par Compresser vers › Fichier ZIP."
+   },
+   {
+    "term": "Déplacer (Couper/Coller)",
+    "text": "Opération dans laquelle le fichier quitte son emplacement d'origine pour aller à la destination."
+   },
+   {
+    "term": "Copier",
+    "text": "Opération dans laquelle le fichier reste à son emplacement d'origine et une copie est créée à la destination."
+   }
+  ],
+  "ex2": [
+   {
+    "text": "Ctrl + C puis Ctrl + V permet de copier un fichier.",
+    "a": true,
+    "corr": ""
+   },
+   {
+    "text": "La touche F2 permet de supprimer un fichier.",
+    "a": false,
+    "corr": "F2 permet de renommer ; la touche Suppr supprime."
+   },
+   {
+    "text": "Maj + Suppr supprime un fichier sans passer par la Corbeille.",
+    "a": true,
+    "corr": ""
+   },
+   {
+    "text": "Pour sélectionner des éléments contigus, on maintient la touche Ctrl.",
+    "a": false,
+    "corr": "On maintient Maj ; Ctrl sert pour les éléments non contigus."
+   },
+   {
+    "text": "Le caractère * remplace un groupe de caractères dans une recherche.",
+    "a": true,
+    "corr": ""
+   },
+   {
+    "text": "Vider la Corbeille permet de restaurer les fichiers qu'elle contient.",
+    "a": false,
+    "corr": "Vider la Corbeille supprime définitivement son contenu."
+   },
+   {
+    "text": "Ctrl + Z annule la dernière action.",
+    "a": true,
+    "corr": ""
+   },
+   {
+    "text": "Les fichiers supprimés d'une clé USB passent par la Corbeille.",
+    "a": false,
+    "corr": "Ils sont supprimés définitivement."
+   }
+  ],
+  "ex3": {
+   "items": [
+    {
+     "text": "Raccourci clavier qui sélectionne tous les éléments d'un dossier.",
+     "a": "Ctrl + A"
+    },
+    {
+     "text": "Raccourci clavier qui crée un nouveau dossier.",
+     "a": "Ctrl + Maj + N"
+    },
+    {
+     "text": "Touche qui permet de renommer l'élément sélectionné.",
+     "a": "F2"
+    },
+    {
+     "text": "Fenêtre qui affiche le type, la taille et la date d'un fichier (Alt + Entrée).",
+     "a": "Propriétés"
+    },
+    {
+     "text": "Zone de l'Explorateur qui affiche le chemin du dossier courant.",
+     "a": "Barre d'adresse"
+    },
+    {
+     "text": "Zone de gauche de l'Explorateur : Accueil, Bureau, Documents, Ce PC, lecteurs.",
+     "a": "Volet de navigation"
+    }
+   ],
+   "distract": [
+    "Dossier (répertoire)",
+    "Explorateur de fichiers",
+    "Linux"
+   ]
+  },
+  "ex4": [
+   {
+    "q": "Quel raccourci permet de couper un fichier ?",
+    "opts": [
+     "Ctrl + C",
+     "Ctrl + Z",
+     "Ctrl + X"
+    ],
+    "a": 2
+   },
+   {
+    "q": "Que faut-il taper pour retrouver tous les documents Word ?",
+    "opts": [
+     "?.docx",
+     "*.docx",
+     "docx.*"
+    ],
+    "a": 1
+   },
+   {
+    "q": "Comment récupérer un fichier supprimé du disque ?",
+    "opts": [
+     "Compresser vers › Fichier ZIP",
+     "Corbeille › clic droit › Restaurer",
+     "Corbeille › Vider"
+    ],
+    "a": 1
+   },
+   {
+    "q": "Comment extraire un fichier .zip ?",
+    "opts": [
+     "Ctrl + A",
+     "Clic droit › Extraire tout",
+     "Clic droit › Renommer"
+    ],
+    "a": 1
+   },
+   {
+    "q": "Quelle touche maintenir pour sélectionner des fichiers non contigus ?",
+    "opts": [
+     "Alt",
+     "Ctrl",
+     "Maj"
+    ],
+    "a": 1
+   },
+   {
+    "q": "Quel mode d'affichage montre la taille et la date sur chaque ligne ?",
+    "opts": [
+     "Mosaïques",
+     "Détails",
+     "Très grandes icônes"
+    ],
+    "a": 1
+   },
+   {
+    "q": "Quel raccourci ouvre un nouvel onglet dans l'Explorateur ?",
+    "opts": [
+     "Ctrl + T",
+     "Alt + F4",
+     "Ctrl + Maj + N"
+    ],
+    "a": 0
+   },
+   {
+    "q": "Que se passe-t-il après Ctrl + X puis Ctrl + V ?",
+    "opts": [
+     "Le fichier est déplacé",
+     "Une copie est créée",
+     "Le fichier est supprimé définitivement"
+    ],
+    "a": 0
+   }
+  ],
+  "ex5": {
+   "tree": [
+    "C:",
+    "└── Utilisateurs",
+    "    └── Eleve",
+    "        ├── Documents",
+    "        │   └── TC_Informatique",
+    "        │       ├── Cours",
+    "        │       │   ├── systeme.docx",
+    "        │       │   └── resume.txt",
+    "        │       └── TP",
+    "        │           └── tp1.docx",
+    "        ├── Images",
+    "        │   └── photo.jpg",
+    "        └── Musique",
+    "            └── chanson.mp3"
+   ],
+   "items": [
+    {
+     "q": "Quelle est la racine de cette arborescence ?",
+     "kind": "choice",
+     "opts": [
+      "Eleve",
+      "Utilisateurs",
+      "C:"
+     ],
+     "a": 2,
+     "mono": false
+    },
+    {
+     "q": "Combien de dossiers y a-t-il (sans compter la racine) ?",
+     "kind": "num",
+     "a": "8"
+    },
+    {
+     "q": "Combien de fichiers y a-t-il ?",
+     "kind": "num",
+     "a": "5"
+    },
+    {
+     "q": "Quel est le chemin d'accès complet du fichier « systeme.docx » ?",
+     "kind": "choice",
+     "opts": [
+      "C:\\Utilisateurs\\Eleve\\Documents\\TC_Informatique\\Cours\\systeme.docx",
+      "C:\\Utilisateurs\\Eleve\\TC_Informatique\\Documents\\Cours\\systeme.docx",
+      "C:\\Eleve\\Documents\\TC_Informatique\\Cours\\systeme.docx"
+     ],
+     "a": 0,
+     "mono": true
+    },
+    {
+     "q": "Quel est le chemin d'accès complet du fichier « tp1.docx » ?",
+     "kind": "choice",
+     "opts": [
+      "C:/Utilisateurs/Eleve/Documents/TC_Informatique/TP/tp1.docx",
+      "C:\\Utilisateurs\\Eleve\\Documents\\TP\\TC_Informatique\\tp1.docx",
+      "C:\\Utilisateurs\\Eleve\\Documents\\TC_Informatique\\TP\\tp1.docx"
+     ],
+     "a": 2,
+     "mono": true
+    },
+    {
+     "q": "Dans quel dossier se trouve directement le fichier « photo.jpg » ?",
+     "kind": "choice",
+     "opts": [
+      "Cours",
+      "Musique",
+      "Images"
+     ],
+     "a": 2,
+     "mono": false
+    },
+    {
+     "q": "Quels sont les sous-dossiers directs du dossier « Eleve » ?",
+     "kind": "choice",
+     "opts": [
+      "Documents et Images et Musique",
+      "Documents et Images et TC_Informatique",
+      "Documents et Images et Utilisateurs"
+     ],
+     "a": 0,
+     "mono": false
+    },
+    {
+     "q": "Combien d'éléments (dossiers et fichiers) contient directement le dossier « Eleve » ?",
+     "kind": "num",
+     "a": "3"
+    },
+    {
+     "q": "On déplace « chanson.mp3 » dans le dossier « TP ». Quel est son nouveau chemin d'accès ?",
+     "kind": "choice",
+     "opts": [
+      "C:/Utilisateurs/Eleve/Documents/TC_Informatique/TP/chanson.mp3",
+      "C:\\Utilisateurs\\Eleve\\Documents\\TC_Informatique\\TP\\chanson.mp3",
+      "C:\\Utilisateurs\\Eleve\\Documents\\TC_Informatique\\TP\\systeme.docx"
+     ],
+     "a": 1,
+     "mono": true
+    },
+    {
+     "q": "Quel chemin d'accès désigne correctement le dossier « Eleve » ?",
+     "kind": "choice",
+     "opts": [
+      "Utilisateurs\\Eleve",
+      "C:\\Utilisateurs\\Eleve",
+      "C:/Utilisateurs/Eleve"
+     ],
+     "a": 1,
+     "mono": true
+    }
+   ]
+  },
+  "title": "Système d'exploitation (Windows 11) : série 2, fichiers, Corbeille, recherche et compression",
+  "topic": "Fichiers : opérations, Corbeille, recherche et compression",
+  "course": "se"
  }
 }
